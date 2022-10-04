@@ -19,21 +19,26 @@
 		"printWidth": 100
 	},
 	"lint-staged": {
-		"*.{js,ts,tsx}": [ "eslint --fix" ]
+		"*.{js,ts,tsx}": [
+			"eslint --fix"
+		]
 	},
 	"dependencies": {
 		"@blitzjs/auth": "2.0.0-beta.4",
 		"@blitzjs/next": "2.0.0-beta.4",
 		"@blitzjs/rpc": "2.0.0-beta.4",
 		"@prisma/client": "4.4.0",
+		"autoprefixer": "10.4.12",
 		"blitz": "2.0.0-beta.4",
+		"final-form": "4.20.7",
 		"next": "12.2.5",
+		"postcss": "8.4.17",
 		"prisma": "4.4.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
-		"zod": "3.17.3",
-		"final-form": "4.20.7",
-		"react-final-form": "6.5.9"
+		"react-final-form": "6.5.9",
+		"tailwindcss": "3.1.8",
+		"zod": "3.17.3"
 	},
 	"devDependencies": {
 		"@next/bundle-analyzer": "12.0.8",
