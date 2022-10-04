@@ -1,10 +1,11 @@
 import Layout from 'app/core/layouts/Layout';
 import { Routes, BlitzPage } from '@blitzjs/next';
+import Link from 'next/link';
 
 const Home: BlitzPage = () => {
 	return (
 		<Layout title="Home">
-			<main className="p-8 sm:p-12 lg:p-20">
+			<main>
 				<div className="sm:text-center lg:text-left">
 					<h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
 						<span className="block xl:inline">everybody.</span>
@@ -16,20 +17,11 @@ const Home: BlitzPage = () => {
 					</p>
 					<div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
 						<div className="rounded-md shadow">
-							<a
-								href="#"
-								className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg"
-							>
-								Get started
-							</a>
-						</div>
-						<div className="mt-3 sm:mt-0 sm:ml-3">
-							<a
-								href="#"
-								className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-100 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-200 md:py-4 md:px-10 md:text-lg"
-							>
-								Live demo
-							</a>
+							<Link href={Routes.NewGroup()}>
+								<a className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 md:py-4 md:px-10 md:text-lg">
+									Create new group
+								</a>
+							</Link>
 						</div>
 					</div>
 				</div>
