@@ -1,15 +1,29 @@
-// import db from "./index"
+import db from './index';
 
-/*
- * This seed function is executed when you run `blitz db seed`.
- *
- * Probably you want to use a library like https://chancejs.com
- * to easily generate realistic data.
- */
 const seed = async () => {
-  // for (let i = 0; i < 5; i++) {
-  //   await db.project.create({ data: { name: "Project " + i } })
-  // }
-}
+	const groupNames = [ 'family-christmas', 'work-goodbye', 'friends-birthday' ];
 
-export default seed
+	for (const groupName of groupNames) {
+		const group = await db.group.create({
+			data: {
+				name: groupName,
+				hashedPassword: '1234',
+				settings: {
+					event: `My ${groupName} event`,
+					date: '2022-12-24',
+					amount: 100
+				}
+			}
+		});
+		for (let i = 0; i < 10; i++) {
+			await db.user.create({
+				data: {
+					name: `(${group.name}) User ${i}`,
+					groupId: group.id
+				}
+			});
+		}
+	}
+};
+
+export default seed;
