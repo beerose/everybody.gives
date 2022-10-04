@@ -16,7 +16,7 @@ const seed = async () => {
 			}
 		});
 		for (let i = 0; i < 10; i++) {
-			await db.user.create({
+			await db.groupMember.create({
 				data: {
 					name: `(${group.name}) User ${i}`,
 					groupId: group.id

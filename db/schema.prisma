@@ -12,7 +12,7 @@ generator client {
 
 // --------------------------------------
 
-model User {
+model GroupMember {
   id   Int    @id @default(autoincrement())
   name String
 
@@ -33,15 +33,16 @@ model User {
 }
 
 model Group {
-  id       String @id @default(uuid())
-  name     String @unique
-  settings Json
+  id        String @id @default(uuid())
+  name      String @unique
+  settings  Json
 
   hashedPassword String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User[]
+
+  members      GroupMember[]
 }
 
 model Session {
@@ -55,7 +56,7 @@ model Session {
   publicData         String?
   privateData        String?
 
-  user   User? @relation(fields: [userId], references: [id])
+  user   GroupMember? @relation(fields: [userId], references: [id])
   userId Int?
 }
 
@@ -70,7 +71,7 @@ model Token {
   expiresAt   DateTime
   sentTo      String
 
-  user   User @relation(fields: [userId], references: [id])
+  user   GroupMember @relation(fields: [userId], references: [id])
   userId Int
 
   @@unique([hashedToken, type])
