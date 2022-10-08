@@ -1,6 +1,6 @@
 import Layout from 'app/core/layouts/Layout';
-import { Routes, BlitzPage } from '@blitzjs/next';
-import Link from 'next/link';
+import { BlitzPage } from '@blitzjs/next';
+import { CreateGroupForm } from 'app/groups/components/CreateGroupForm';
 
 const NewGroup: BlitzPage = () => {
 	return (
@@ -11,6 +11,9 @@ const NewGroup: BlitzPage = () => {
 						<span className="block xl:inline">New group</span>
 					</h1>
 				</div>
+        <div className='py-4 lg:py-8'>
+          <CreateGroupForm />
+        </div>
 			</main>
 		</Layout>
 	);

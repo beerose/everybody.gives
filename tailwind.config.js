@@ -1,11 +1,12 @@
 module.exports = {
   content: ["{pages,app}/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {
-      backgroundImage: {
-        'hero-pattern': "url('pattern.svg')",
-      }
-    },
+    colors: {
+      'background': '#EDE7E2',
+      'action': '#EDE7E2'
+    }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 }

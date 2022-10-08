@@ -8,5 +8,11 @@
   "[xml]": {
     "editor.defaultFormatter": "remimarsal.prettier-now"
   },
-  "svg.preview.background": "dark-transparent"
+  "svg.preview.background": "dark-transparent",
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  }
 }
