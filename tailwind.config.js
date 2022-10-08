@@ -3,7 +3,7 @@ module.exports = {
   theme: {
     colors: {
       'background': '#EDE7E2',
-      'action': '#EDE7E2'
+      'action': '#F5FF7D'
     }
   },
   plugins: [
