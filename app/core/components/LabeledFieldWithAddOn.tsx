@@ -11,12 +11,13 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
 	outerProps?: PropsWithoutRef<JSX.IntrinsicElements['div']>;
 	labelProps?: ComponentPropsWithoutRef<'label'>;
 	fieldProps?: UseFieldConfig<string>;
+	addOn: string;
 }
 
-export const LabeledGroupNameTextField = forwardRef<
+export const LabeledFieldWithAddOn = forwardRef<
 	HTMLInputElement,
 	LabeledTextFieldProps
->(({ name, label, outerProps, fieldProps, labelProps, ...props }, ref) => {
+>(({ name, label, outerProps, fieldProps, labelProps, addOn, ...props }, ref) => {
 	const { input, meta: { touched, error, submitError, submitting } } = useField(name, {
 		parse:
 			props.type === 'number'
@@ -43,7 +44,7 @@ export const LabeledGroupNameTextField = forwardRef<
 			<div className="mt-1 sm:col-span-2 sm:mt-0">
 				<div className="flex max-w-lg rounded-md shadow-sm">
 					<span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">
-						everybody.gives/
+						{addOn}
 					</span>
 					<input
 						type="text"
@@ -54,12 +55,13 @@ export const LabeledGroupNameTextField = forwardRef<
 						disabled={submitting}
 						{...props}
 						ref={ref}
+						data-lpignore="true"
 					/>
 				</div>
 
 				{touched &&
 				normalizedError && (
-					<div role="alert" style={{ color: 'red' }}>
+					<div role="alert" className='text-red-600 text-xs mt-1'>
 						{normalizedError}
 					</div>
 				)}

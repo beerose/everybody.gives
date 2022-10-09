@@ -12,12 +12,14 @@ export const GroupSettings = z.object({
 export const CreateGroupInput = z.object({
 	name: z.string(),
 	createdBy: z.string(),
-	members: z.array(
-		z.object({
-			name: z.string(),
-			constraints: z.array(z.string())
-		})
-	),
+	members: z
+		.array(
+			z.object({
+				name: z.string(),
+				constraints: z.array(z.string()).optional()
+			})
+		)
+		.default([]),
 	password: z.string(),
-	settings: GroupSettings
+	settings: GroupSettings.optional()
 });

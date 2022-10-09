@@ -57,7 +57,7 @@ export const LabeledTextField = forwardRef<
 
 				{touched &&
 				normalizedError && (
-					<div role="alert" style={{ color: 'red' }}>
+					<div role="alert" className='text-red-600 text-xs mt-1'>
 						{normalizedError}
 					</div>
 				)}

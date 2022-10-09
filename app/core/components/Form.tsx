@@ -14,6 +14,7 @@ export interface FormProps<S extends z.ZodType<any, any>>
 	onSubmit: FinalFormProps<z.infer<S>>['onSubmit'];
 	initialValues?: FinalFormProps<z.infer<S>>['initialValues'];
 	formName?: string;
+	mutators?: FinalFormProps<z.infer<S>>["mutators"],
 	formDescription?: string;
 }
 
@@ -25,6 +26,7 @@ export function Form<S extends z.ZodType<any, any>>({
 	onSubmit,
 	formName,
 	formDescription,
+	mutators,
 	...props
 }: FormProps<S>) {
 	return (
@@ -32,8 +34,10 @@ export function Form<S extends z.ZodType<any, any>>({
 			initialValues={initialValues}
 			validate={validateZodSchema(schema)}
 			onSubmit={onSubmit}
-			render={({ handleSubmit, submitting, submitError }) => (
-				<form className="space-y-8 divide-y divide-gray-200" onSubmit={handleSubmit} {...props}>
+			mutators={mutators}
+			render={({ handleSubmit, submitting, submitError }) => {
+				return (
+				<form className="space-y-8 divide-y divide-gray-200" onSubmit={handleSubmit} {...props} autoComplete="off">
 					<div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
 						<div className="space-y-6 sm:space-y-5">
 							{formName && (
@@ -59,14 +63,14 @@ export function Form<S extends z.ZodType<any, any>>({
                 <div className="flex justify-end">
                   <button
                     type="button"
-                    className="bg-action rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Cancel
                   </button>
                   <button
                     disabled={submitting}
                     type="submit"
-                    className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-default"
                   >
                     Save
                   </button>
@@ -75,7 +79,7 @@ export function Form<S extends z.ZodType<any, any>>({
 						</div>
 					</div>
 				</form>
-			)}
+			)}}
 		/>
 	);
 }
