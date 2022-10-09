@@ -9,7 +9,7 @@ const Home: BlitzPage = () => {
 		<Layout title="Home">
 			<main className="h-full flex items-center">
 				<div className="text-left">
-					<h1 className="text-6xl font-extrabold tracking-tight sm:text-8xl">
+					<h1 className="text-6xl font-extrabold tracking-tight sm:text-8xl flex flex-col">
 						<span
 							style={{ textShadow: '-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000' }}
 							className="block xl:inline md:whitespace-nowrap"
