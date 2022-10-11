@@ -21,7 +21,6 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
     <Form
       submitText="Create"
       schema={CreateGroupInput}
-      initialValues={{ name: "", password: "", createdBy: "" }}
       mutators={{
         ...arrayMutators,
       }}

@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 
 const GroupPage: BlitzPage = () => {
 	const router = useRouter();
-	console.log({ router });
 	if (!router.query.name || typeof router.query.name !== 'string') {
 		return <div>No group found. Go to the <Link href={Routes.Home()}><a className='cursor-pointer bold underline'>home page</a></Link>.</div>;
 	}
