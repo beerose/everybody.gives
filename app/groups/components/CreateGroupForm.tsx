@@ -25,10 +25,10 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
       }}
       onSubmit={async (values) => {
         try {
+          console.log({values})
           const group = await createGroupMutation(values)
           props.onSuccess?.(group)
         } catch (error: any) {
-          console.log("HERE")
           if (error.code === "P2002" && error.meta?.target?.includes("name")) {
             // This error comes from Prisma
             return { name: "This group name is already being used" }
@@ -36,9 +36,10 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
           if (error instanceof AuthenticationError) {
             return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
           } else {
+            console.error(error)
             return {
               [FORM_ERROR]:
-                "Sorry, we had an unexpected error. Please try again. - " + error.toString(),
+                "Sorry, we had an unexpected error. Please try again.",
               }
           }
         }
@@ -46,11 +47,10 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
     >
       <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name" placeholder="my-party-2022" />
       <LabeledTextField name="createdBy" label="Your Name" placeholder="Alex" />
-      <LabeledTextField name="group_event" label="Event name" placeholder="Christmas Eve 2022" />
+      <LabeledTextField name="settings.eventName" label="Event name" placeholder="Christmas Eve 2022" />
       <LabeledTextField name="password" label="Gorup's Password" placeholder="Password" type="password" />
-      {/* <LabeledFieldWithAddOn addOn={<CurrencyEuroIcon />} name="amount" label="Amount" placeholder="my-party-2022" /> */}
+      <LabeledTextField type="number" name="settings.amount" label="Amount" placeholder="50" />
       <AddMembers />
     </Form>
-
   )
 }
