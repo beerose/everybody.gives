@@ -1,5 +1,5 @@
 import Layout from 'app/core/layouts/Layout';
-import { BlitzPage } from '@blitzjs/next';
+import { BlitzPage, Routes } from '@blitzjs/next';
 import { CreateGroupForm } from 'app/groups/components/CreateGroupForm';
 import { useRouter } from 'next/router';
 
@@ -16,8 +16,8 @@ const NewGroup: BlitzPage = () => {
 						</h1>
 					</div>
 					<div className='py-4 lg:py-8'>
-						<CreateGroupForm onSuccess={() => {
-							router.push("/")
+						<CreateGroupForm onSuccess={(newGroup) => {
+							router.push(Routes.GroupPage({name: newGroup.name}))
 						}} />
 					</div>
 				</div>

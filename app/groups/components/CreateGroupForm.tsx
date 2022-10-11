@@ -8,9 +8,10 @@ import { LabeledFieldWithAddOn } from "app/core/components/LabeledFieldWithAddOn
 import {AddMembers} from "./AddMembers"
 import arrayMutators from "final-form-arrays"
 import LabeledTextareaField from "app/core/components/LabeledTextareaField"
+import { Group } from "db"
 
 type CreateGroupFormProps = {
-  onSuccess?: (group: PromiseReturnType<typeof createGroup>) => void
+  onSuccess: (group: Group) => void
 }
 
 export const CreateGroupForm = (props: CreateGroupFormProps) => {
@@ -28,7 +29,7 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
         try {
           console.log({values}) // todo: remove me
           const group = await createGroupMutation(values)
-          props.onSuccess?.(group)
+          group && props.onSuccess(group)
         } catch (error: any) {
           if (error.code === "P2002" && error.meta?.target?.includes("name")) {
             // This error comes from Prisma
