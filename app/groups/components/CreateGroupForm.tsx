@@ -11,7 +11,7 @@ import LabeledTextareaField from "app/core/components/LabeledTextareaField"
 import { Group } from "db"
 
 type CreateGroupFormProps = {
-  onSuccess: (group: Group) => void
+  onSuccess: (group: Pick<Group, "name">) => void
 }
 
 export const CreateGroupForm = (props: CreateGroupFormProps) => {
@@ -27,9 +27,8 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
       }}
       onSubmit={async (values) => {
         try {
-          console.log({values}) // todo: remove me
           const group = await createGroupMutation(values)
-          group && props.onSuccess(group)
+          props.onSuccess(group)
         } catch (error: any) {
           if (error.code === "P2002" && error.meta?.target?.includes("name")) {
             // This error comes from Prisma
@@ -50,10 +49,9 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
       <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name" placeholder="my-party-2022" />
       <LabeledTextField name="createdBy" label="Your Name" placeholder="Alex" />
       <LabeledTextField name="password" label="Gorup's Password" placeholder="Password" type="password" />
-      {/* <LabeledTextField name="settings.eventName" label="Event name" placeholder="Christmas Eve 2022" /> */}
-      <LabeledTextareaField name="settings.eventDescription" label="Description" placeholder={`Christmas Eve 2022
+      <LabeledTextField name="eventName" label="Event name" placeholder="Christmas Eve 2022" />
+      <LabeledTextareaField name="description" label="Description" placeholder={`Christmas Eve 2022
 24/12/2022, Wroclaw, 5pm`} />
-      <LabeledTextField type="number" name="settings.amount" label="Amount" placeholder="50" />
       <AddMembers />
     </Form>
   )

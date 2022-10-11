@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Group" ALTER COLUMN "createdBy" DROP DEFAULT,
+ALTER COLUMN "description" DROP NOT NULL,
+ALTER COLUMN "description" DROP DEFAULT,
+ALTER COLUMN "eventName" DROP DEFAULT;

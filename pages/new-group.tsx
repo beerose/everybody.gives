@@ -16,8 +16,8 @@ const NewGroup: BlitzPage = () => {
 						</h1>
 					</div>
 					<div className='py-4 lg:py-8'>
-						<CreateGroupForm onSuccess={(newGroup) => {
-							router.push(Routes.GroupPage({name: newGroup.name}))
+						<CreateGroupForm onSuccess={async (newGroup) => {
+							await router.push(Routes.GroupPage({name: newGroup.name}))
 						}} />
 					</div>
 				</div>

@@ -1,14 +1,11 @@
 import * as z from 'zod';
 
-export const GroupSettings = z.object({
-	allowEdits: z.union([ z.boolean(), z.array(z.string()) ]).default(false),
-	eventDescription: z.string().optional(),
-	amount: z.number().optional()
-});
-
 export const CreateGroupInput = z.object({
 	name: z.string(),
+	eventName: z.string(),
+	description: z.string().optional(),
 	createdBy: z.string(),
+	allowEdits: z.union([ z.boolean(), z.array(z.string()) ]).default(false),
 	members: z
 		.array(
 			z.object({
@@ -17,6 +14,9 @@ export const CreateGroupInput = z.object({
 			})
 		)
 		.default([]),
-	password: z.string(),
-	settings: GroupSettings.optional()
+	password: z.string()
+});
+
+export const GetGroupInput = z.object({
+	groupName: z.string()
 });
