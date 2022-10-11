@@ -37,9 +37,9 @@ export function Form<S extends z.ZodType<any, any>>({
 			mutators={mutators}
 			render={({ handleSubmit, submitting, submitError }) => {
 				return (
-				<form className="space-y-8 divide-y divide-gray-200" onSubmit={handleSubmit} {...props} autoComplete="off">
-					<div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
-						<div className="space-y-6 sm:space-y-5">
+				<form className="space-y-4 divide-y divide-gray-200" onSubmit={handleSubmit} {...props} autoComplete="off">
+					<div className="space-y-4 divide-y divide-gray-200 sm:space-y-5">
+						<div className="space-y-4">
 							{formName && (
 								<div>
 									<h3 className="text-lg font-medium leading-6 text-gray-900">{formName}</h3>

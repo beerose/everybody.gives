@@ -7,6 +7,7 @@ import { CreateGroupInput } from "../validations"
 import { LabeledFieldWithAddOn } from "app/core/components/LabeledFieldWithAddOn"
 import {AddMembers} from "./AddMembers"
 import arrayMutators from "final-form-arrays"
+import LabeledTextareaField from "app/core/components/LabeledTextareaField"
 
 type CreateGroupFormProps = {
   onSuccess?: (group: PromiseReturnType<typeof createGroup>) => void
@@ -25,7 +26,7 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
       }}
       onSubmit={async (values) => {
         try {
-          console.log({values})
+          console.log({values}) // todo: remove me
           const group = await createGroupMutation(values)
           props.onSuccess?.(group)
         } catch (error: any) {
@@ -47,8 +48,10 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
     >
       <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name" placeholder="my-party-2022" />
       <LabeledTextField name="createdBy" label="Your Name" placeholder="Alex" />
-      <LabeledTextField name="settings.eventName" label="Event name" placeholder="Christmas Eve 2022" />
       <LabeledTextField name="password" label="Gorup's Password" placeholder="Password" type="password" />
+      {/* <LabeledTextField name="settings.eventName" label="Event name" placeholder="Christmas Eve 2022" /> */}
+      <LabeledTextareaField name="settings.eventDescription" label="Description" placeholder={`Christmas Eve 2022
+24/12/2022, Wroclaw, 5pm`} />
       <LabeledTextField type="number" name="settings.amount" label="Amount" placeholder="50" />
       <AddMembers />
     </Form>
