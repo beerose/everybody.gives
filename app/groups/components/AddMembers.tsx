@@ -1,5 +1,5 @@
 import { UserGroupIcon, XIcon } from '@heroicons/react/outline';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormState } from 'react-final-form';
 import { useFieldArray } from 'react-final-form-arrays';
 
@@ -7,18 +7,6 @@ export const AddMembers = () => {
 	const formState = useFormState();
 	const {fields} = useFieldArray('members');
 	const [ value, setValue ] = useState('');
-  const [ hasAdmin, setHasAdmin] = useState(false)
-
-	useEffect(() => {
-    if (formState.dirtyFields["createdBy"] && formState.active !== "createdBy") {
-      if (hasAdmin) {
-        fields.update(0, {name: formState.values.createdBy, admin: true})
-      } else {
-        setHasAdmin(true)
-        fields.unshift({name: formState.values.createdBy, admin: true})
-      }
-    }
-  }, [formState.values?.createdBy, formState.dirtyFields, formState.active ]);
 
 	return (
 		<div className="mx-auto max-w-lg">
@@ -53,7 +41,16 @@ export const AddMembers = () => {
 					</button>
 				</div>
 				<ul role="list" className="divide-y divide-gray-200 border-t border-b border-gray-200 mt-4">
-					{fields.value?.map(({name, admin}, personIdx) => (
+					<li className="flex items-center justify-between space-x-3 py-2">
+						<div className="flex min-w-0 flex-1 items-center space-x-3">
+							<div className="min-w-0 flex-1">
+								<p className="truncate text-sm font-medium text-gray-900">
+									{formState.values.createdBy}
+								</p>
+							</div>
+						</div>
+					</li>
+					{fields.value?.map(({name}, personIdx) => (
 						<li key={personIdx} className="flex items-center justify-between space-x-3 py-2">
 							<div className="flex min-w-0 flex-1 items-center space-x-3">
 								<div className="min-w-0 flex-1">
@@ -65,7 +62,6 @@ export const AddMembers = () => {
 							<div className="flex-shrink-0">
 								<button
 									onClick={() => {
-                    if (admin) setHasAdmin(false)
 										fields.remove(personIdx);
 									}}
 									type="button"

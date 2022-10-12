@@ -2,7 +2,6 @@ import Layout from 'app/core/layouts/Layout';
 import { BlitzPage, Routes } from '@blitzjs/next';
 import { CreateGroupForm } from 'app/groups/components/CreateGroupForm';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 const NewGroup: BlitzPage = () => {
 	const router = useRouter();

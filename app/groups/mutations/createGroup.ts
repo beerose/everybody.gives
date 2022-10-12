@@ -17,7 +17,7 @@ export default resolver.pipe(
 				hashedPassword,
 				members: {
 					createMany: {
-						data: members.map((m) => ({
+						data: [ { name: createdBy }, ...members ].map((m) => ({
 							name: m.name,
 							constraints: m.constraints
 						}))
