@@ -50,7 +50,7 @@ export const LabeledFieldWithAddOn = forwardRef<
 						type="text"
 						id="username"
 						autoComplete="username"
-						className="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+						className={`block w-full min-w-0 flex-1 rounded-none rounded-r-md ${touched && normalizedError ? 'border-red-500 focus:border-red-500 focus:ring-red-500': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} sm:text-sm`}
 						{...input}
 						disabled={submitting}
 						{...props}
@@ -58,13 +58,6 @@ export const LabeledFieldWithAddOn = forwardRef<
 						data-lpignore="true"
 					/>
 				</div>
-
-				{touched &&
-				normalizedError && (
-					<div role="alert" className='text-red-600 text-xs mt-1'>
-						{normalizedError}
-					</div>
-				)}
 			</div>
 		</div>
 	);

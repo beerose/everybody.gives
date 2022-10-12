@@ -56,7 +56,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>(props: MultistepFor
 			validate={validate}
 			onSubmit={handleSubmit}
 			mutators={props.mutators}
-			render={({ handleSubmit, submitting, values, submitError }) => (
+			render={({ handleSubmit, submitting, submitError }) => (
 				<form
 					className="space-y-4 divide-y divide-gray-200"
 					{...props}

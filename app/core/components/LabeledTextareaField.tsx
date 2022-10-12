@@ -37,20 +37,13 @@ export const LabeledTextareaField = forwardRef<
 				<div className="flex max-w-lg rounded-md shadow-sm">
 					<textarea
 						rows={2}
-						className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+						className={`block w-full rounded-md ${touched && normalizedError ? 'border-red-500 focus:border-red-500 focus:ring-red-500': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} shadow-sm sm:text-sm`}
 						{...input}
 						disabled={submitting}
 						{...props}
 						ref={ref}
 					/>
 				</div>
-
-				{touched &&
-				normalizedError && (
-					<div role="alert" className="text-red-600 text-xs mt-1">
-						{normalizedError}
-					</div>
-				)}
 			</div>
 		</div>
 	);

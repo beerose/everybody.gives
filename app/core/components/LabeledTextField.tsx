@@ -40,6 +40,7 @@ export const LabeledTextField = forwardRef<
 			>
 				{label}
 			</label>
+
 			<div className="mt-1 sm:col-span-2 sm:mt-0">
 				<div className="flex max-w-lg rounded-md shadow-sm">
 					<input
@@ -47,7 +48,7 @@ export const LabeledTextField = forwardRef<
 						type="text"
 						id="username"
 						autoComplete="username"
-						className="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+						className={`block w-full min-w-0 flex-1 rounded-md ${touched && normalizedError ? 'border-red-500 focus:border-red-500 focus:ring-red-500': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm`}
 						{...input}
 						disabled={submitting}
 						{...props}
@@ -55,12 +56,6 @@ export const LabeledTextField = forwardRef<
 					/>
 				</div>
 
-				{touched &&
-				normalizedError && (
-					<div role="alert" className='text-red-600 text-xs mt-1'>
-						{normalizedError}
-					</div>
-				)}
 			</div>
 		</div>
 	);
