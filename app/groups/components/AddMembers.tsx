@@ -25,10 +25,6 @@ export const AddMembers = () => {
 			<div className="text-center">
 				<UserGroupIcon className="mx-auto h-12 w-12 text-gray-400 stroke-1" />
 				<h2 className="mt-1 text-lg font-medium text-gray-900">Add group members</h2>
-				{/* <p className="mt-1 text-sm text-gray-500">
-          You haven’t added any team members to your project yet. As the owner of this project, you can manage team
-          member permissions.
-        </p> */}
 			</div>
 			<div>
 				<div className="flex mt-3">
@@ -57,7 +53,7 @@ export const AddMembers = () => {
 					</button>
 				</div>
 				<ul role="list" className="divide-y divide-gray-200 border-t border-b border-gray-200 mt-4">
-					{fields.value.map(({name, admin}, personIdx) => (
+					{fields.value?.map(({name, admin}, personIdx) => (
 						<li key={personIdx} className="flex items-center justify-between space-x-3 py-2">
 							<div className="flex min-w-0 flex-1 items-center space-x-3">
 								<div className="min-w-0 flex-1">

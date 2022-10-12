@@ -45,10 +45,10 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
         }
       }}
     >
-      <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name" placeholder="my-party-2022" />
-      <LabeledTextField name="createdBy" label="Your Name" placeholder="Alex" />
-      <LabeledTextField name="password" label="Gorup's Password" placeholder="Password" type="password" />
-      <LabeledTextField name="eventName" label="Event name" placeholder="Christmas Eve 2022" />
+      <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name *" placeholder="my-party-2022" />
+      <LabeledTextField name="createdBy" label="Your Name *" placeholder="Alex" />
+      <LabeledTextField name="password" label="Gorup's Password *" placeholder="Password" type="password" />
+      <LabeledTextField name="eventName" label="Event name *" placeholder="Christmas Eve 2022" />
       <LabeledTextareaField name="description" label="Description" placeholder={`Christmas Eve 2022
 24/12/2022, Wroclaw, 5pm`} />
       <AddMembers />
