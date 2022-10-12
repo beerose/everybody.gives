@@ -21,7 +21,6 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
   return (
     <MultistepForm
       submitText="Create"
-      schema={CreateGroupInput}
       mutators={{
         ...arrayMutators,
       }}
