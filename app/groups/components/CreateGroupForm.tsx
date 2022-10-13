@@ -3,7 +3,7 @@ import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { FORM_ERROR } from "app/core/components/Form"
 import { useMutation } from "@blitzjs/rpc"
 import createGroup from "app/groups/mutations/createGroup"
-import { CreateGroupBasicInfo, CreateGroupInput, CreateGroupMembersInfo } from "../validations"
+import { CreateGroupBasicInfo, CreateGroupMembersInfo } from "../validations"
 import { LabeledFieldWithAddOn } from "app/core/components/LabeledFieldWithAddOn"
 import {AddMembers} from "./AddMembers"
 import arrayMutators from "final-form-arrays"
@@ -39,7 +39,6 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
           if (error instanceof AuthenticationError) {
             return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
           } else {
-            console.error(error)
             return {
               [FORM_ERROR]:
                 "Sorry, we had an unexpected error. Please try again.",
@@ -64,7 +63,7 @@ const NewGroupBasicFields = () => {
   return (
     <>
      <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name *" placeholder="my-party-2022" />
-     <LabeledTextField name="createdBy" label="Your Name *" placeholder="Alex" onChangeHook={(value) => {form.change("members", [{name: value}, {name: ""}, {name: ""}, {name: ""}])}} />
+     <LabeledTextField name="createdBy" label="Your Name *" placeholder="Alex" onChangeHook={(value) => {form.change("members", [{name: value}, {name: undefined}, {name: undefined}, {name: undefined}])}} />
      <LabeledTextField name="password" label="Gorup's Password *" placeholder="Password" type="password" />
      <LabeledTextField name="eventName" label="Event name *" placeholder="Christmas Eve 2022" />
      <LabeledTextareaField name="description" label="Description" placeholder={`Christmas Eve 2022
