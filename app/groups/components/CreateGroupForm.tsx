@@ -10,6 +10,7 @@ import arrayMutators from "final-form-arrays"
 import LabeledTextareaField from "app/core/components/LabeledTextareaField"
 import { Group } from "db"
 import { MultistepForm } from "./MultistepForm"
+import { useForm } from "react-final-form"
 
 type CreateGroupFormProps = {
   onSuccess: (group: Pick<Group, "name">) => void
@@ -21,6 +22,8 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
   return (
     <MultistepForm
       submitText="Create"
+      className=""
+      initialValues={{members: [{name: ""}]}}
       mutators={{
         ...arrayMutators,
       }}
@@ -46,16 +49,25 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
       }}
     >
       <MultistepForm.Page schema={CreateGroupBasicInfo}>
-        <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name *" placeholder="my-party-2022" />
-        <LabeledTextField name="createdBy" label="Your Name *" placeholder="Alex" />
-        <LabeledTextField name="password" label="Gorup's Password *" placeholder="Password" type="password" />
-        <LabeledTextField name="eventName" label="Event name *" placeholder="Christmas Eve 2022" />
-        <LabeledTextareaField name="description" label="Description" placeholder={`Christmas Eve 2022
-24/12/2022, Wroclaw, 5pm`} />
+        <NewGroupBasicFields />
       </MultistepForm.Page>
       <MultistepForm.Page schema={CreateGroupMembersInfo}>
         <AddMembers />
       </MultistepForm.Page>
     </MultistepForm>
   )
+}
+
+const NewGroupBasicFields = () => {
+  const form = useForm()
+  
+  return (
+    <>
+     <LabeledFieldWithAddOn addOn="everybody.gives/" name="name" label="Group Name *" placeholder="my-party-2022" />
+     <LabeledTextField name="createdBy" label="Your Name *" placeholder="Alex" onChangeHook={(value) => {form.change("members", [{name: value}, {name: ""}, {name: ""}, {name: ""}])}} />
+     <LabeledTextField name="password" label="Gorup's Password *" placeholder="Password" type="password" />
+     <LabeledTextField name="eventName" label="Event name *" placeholder="Christmas Eve 2022" />
+     <LabeledTextareaField name="description" label="Description" placeholder={`Christmas Eve 2022
+24/12/2022, Wroclaw, 5pm`} />
+  </>)
 }

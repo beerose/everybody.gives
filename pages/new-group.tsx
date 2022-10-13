@@ -14,7 +14,7 @@ const NewGroup: BlitzPage = () => {
 						<span className="block xl:inline">New group</span>
 					</h1>
 				</div>
-				<div className="py-4 lg:py-8">
+				<div className="py-4 lg:py-8 w-full flex flex-col items-center">
 					<CreateGroupForm
 						onSuccess={async (newGroup) => {
 							await router.push(Routes.GroupPage({ name: newGroup.name }));
