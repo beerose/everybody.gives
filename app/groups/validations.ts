@@ -10,12 +10,14 @@ export const CreateGroupBasicInfo = z.object({
 
 export const CreateGroupMembersInfo = z.object({
 	allowEdits: z.union([ z.boolean(), z.array(z.string()) ]).default(false),
-	members: z.array(
-		z.object({
-			name: z.string(),
-			constraints: z.array(z.string()).optional()
-		})
-	)
+	members: z
+		.array(
+			z.object({
+				name: z.string(),
+				constraints: z.array(z.string()).optional()
+			})
+		)
+		.min(4)
 });
 
 export const CreateGroupInput = CreateGroupBasicInfo.merge(CreateGroupMembersInfo);
