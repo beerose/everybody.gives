@@ -31,12 +31,12 @@ export const LabeledTextField = forwardRef<
 
 	return (
 		<div
-			className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5"
+			className={`sm:grid ${label ? 'sm:grid-cols-3' : ''} sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5`}
 			{...outerProps}
 		>
 		{label &&	(
 			<label
-				htmlFor="username"
+				htmlFor={name}
 				className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
 				{...labelProps}
 			>
@@ -44,13 +44,12 @@ export const LabeledTextField = forwardRef<
 			</label>
 		)}
 
-			<div className={`mt-1 sm:col-span-${label ? 2 : 3} sm:mt-0`}>
+			<div className={`mt-1 sm:col-span-2 sm:mt-0`}>
 				<div className="flex max-w-lg rounded-md shadow-sm">
 					<input
             data-lpignore="true"
 						type="text"
-						id="username"
-						autoComplete="username"
+						id={name}
 						className={`block w-full min-w-0 flex-1 rounded-md ${touched && normalizedError ? 'border-red-500 focus:border-red-500 focus:ring-red-500': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} sm:text-sm`}
 						{...input}
 						disabled={submitting}

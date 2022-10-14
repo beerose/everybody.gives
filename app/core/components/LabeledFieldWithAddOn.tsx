@@ -35,7 +35,7 @@ export const LabeledFieldWithAddOn = forwardRef<
 			{...outerProps}
 		>
 			<label
-				htmlFor="username"
+				htmlFor={name}
 				className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
 				{...labelProps}
 			>
@@ -48,8 +48,7 @@ export const LabeledFieldWithAddOn = forwardRef<
 					</span>
 					<input
 						type="text"
-						id="username"
-						autoComplete="username"
+						id={name}
 						className={`block w-full min-w-0 flex-1 rounded-none rounded-r-md ${touched && normalizedError ? 'border-red-500 focus:border-red-500 focus:ring-red-500': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} sm:text-sm`}
 						{...input}
 						disabled={submitting}
