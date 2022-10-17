@@ -41,6 +41,7 @@ export const LabeledFieldWithAddOn = forwardRef<
 			>
 				{label}
 			</label>
+
 			<div className="mt-1 sm:col-span-2 sm:mt-0">
 				<div className="flex max-w-lg rounded-md shadow-sm">
 					<span className="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">
@@ -57,6 +58,9 @@ export const LabeledFieldWithAddOn = forwardRef<
 						data-lpignore="true"
 					/>
 				</div>
+				{submitError && <span role="alert" className="text-sm text-left text-red-600">
+					{submitError}
+				</span>}
 			</div>
 		</div>
 	);

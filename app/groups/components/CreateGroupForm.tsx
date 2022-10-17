@@ -1,6 +1,5 @@
 import { AuthenticationError } from "blitz"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
-import { FORM_ERROR } from "app/core/components/Form"
 import { useMutation } from "@blitzjs/rpc"
 import createGroup from "app/groups/mutations/createGroup"
 import { CreateGroupBasicInfo,  CreateGroupMembersInfo } from "../validations"
@@ -9,8 +8,9 @@ import {AddMembers} from "./AddMembers"
 import arrayMutators from "final-form-arrays"
 import LabeledTextareaField from "app/core/components/LabeledTextareaField"
 import { Group } from "db"
-import { MultistepForm } from "./MultistepForm"
+import { FORM_ERROR, MultistepForm } from "./MultistepForm"
 import { useForm } from "react-final-form"
+import validateGroupName from "app/groups/mutations/validateGroupName"
 
 type CreateGroupFormProps = {
   onSuccess: (group: Pick<Group, "name">) => void
@@ -18,6 +18,7 @@ type CreateGroupFormProps = {
 
 export const CreateGroupForm = (props: CreateGroupFormProps) => {
   const [createGroupMutation] = useMutation(createGroup)
+  const [validateGroupNameMutation] = useMutation(validateGroupName)
 
   return (
     <MultistepForm
@@ -35,7 +36,7 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
         } catch (error: any) {
           if (error.code === "P2002" && error.meta?.target?.includes("name")) {
             // This error comes from Prisma
-            return { name: "This group name is already being used" }
+            return { [FORM_ERROR]: "The group name is already being used" }
           }
           if (error instanceof AuthenticationError) {
             return { [FORM_ERROR]: "Sorry, those credentials are invalid" }
@@ -48,7 +49,7 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
         }
       }}
     >
-      <MultistepForm.Page schema={CreateGroupBasicInfo}>
+      <MultistepForm.Page schema={CreateGroupBasicInfo} validate={validateGroupNameMutation}>
         <NewGroupBasicFields />
       </MultistepForm.Page>
       <MultistepForm.Page schema={CreateGroupMembersInfo}>

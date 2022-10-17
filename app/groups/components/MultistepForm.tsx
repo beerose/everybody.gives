@@ -2,6 +2,7 @@ import React, { PropsWithoutRef } from 'react';
 import * as z from 'zod';
 import { Form, FormProps as FinalFormProps } from 'react-final-form';
 import { validateZodSchema } from 'blitz';
+export { FORM_ERROR } from 'final-form';
 
 export interface MultistepFormProps<S extends z.ZodType<any, any>>
 	extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit' | 'children'> {
@@ -15,7 +16,7 @@ export interface MultistepFormProps<S extends z.ZodType<any, any>>
 	children: MultistepPage<any>[];
 }
 
-export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{ schema: S }>;
+export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{ schema: S, validate?: (...args: any) => Promise<{error: string | null}> }>;
 
 export const MultistepForm = <S extends z.ZodType<any, any>>({
 	children,
@@ -29,7 +30,11 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 	const [ page, setPage ] = React.useState(0);
 	const [ initialValues, setInitialValues ] = React.useState(props.initialValues);
 
-	const next = (values: Parameters<FinalFormProps<z.infer<S>>['onSubmit']>[0]) => {
+	const next = async (values: Parameters<FinalFormProps<z.infer<S>>['onSubmit']>[0]) => {
+		if (activePage.props.validate) {
+			const result = await activePage.props.validate(values);
+			return result
+		}
 		setPage((s) => Math.max(s + 1, children.length - 1));
 		setInitialValues(values);
 	};
@@ -46,9 +51,9 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 			onSubmit={isLastPage ? onSubmit : next}
 			schema={activePage.props.schema}
 			mutators={mutators}
-			render={({ handleSubmit, submitting, error }) => (
+			render={({ handleSubmit, submitting, submitError }) => (
 				<form
-					className="space-y-4 divide-y divide-gray-200"
+					className="space-y-2 divide-y divide-gray-200"
 					onSubmit={handleSubmit}
 					{...props}
 					autoComplete="off"
@@ -57,9 +62,9 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 						<div className="space-y-4">
 							{activePage}
 
-							{error && (
-								<div role="alert" style={{ color: 'red' }}>
-									{error}
+							{submitError && (
+								<div role="alert" className='text-sm text-red-500'>
+									{submitError}
 								</div>
 							)}
 
@@ -102,6 +107,6 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 	);
 };
 
-const MultistepFormPage = <T extends z.ZodType<any, any>>(props: { schema?: T; children: any }) => props.children;
+const MultistepFormPage = <T extends z.ZodType<any, any>>(props: { schema?: T; children: any, validate?: (...args: any) => Promise<{error: string | null}> }) => props.children;
 
 MultistepForm.Page = MultistepFormPage;

@@ -6,32 +6,27 @@ import { CreateGroupInput } from '../validations';
 export default resolver.pipe(
 	resolver.zod(CreateGroupInput),
 	async ({ name, password, members, createdBy, eventName, description }, ctx) => {
-		try {
-			console.log('HERE');
-			const hashedPassword = await SecurePassword.hash(password.trim());
+		const hashedPassword = await SecurePassword.hash(password.trim());
 
-			const group = await db.group.create({
-				data: {
-					name,
-					createdBy,
-					eventName,
-					description,
-					hashedPassword,
-					members: {
-						createMany: {
-							data: members.map((m) => ({
-								name: m.name,
-								constraints: m.constraints
-							}))
-						}
+		const group = await db.group.create({
+			data: {
+				name,
+				createdBy,
+				eventName,
+				description,
+				hashedPassword,
+				members: {
+					createMany: {
+						data: members.map((m) => ({
+							name: m.name,
+							constraints: m.constraints
+						}))
 					}
-				},
-				select: { id: true, name: true, members: { select: { id: true } } }
-			});
+				}
+			},
+			select: { id: true, name: true, members: { select: { id: true } } }
+		});
 
-			return group;
-		} catch (e) {
-			console.error(e);
-		}
+		return group;
 	}
 );
