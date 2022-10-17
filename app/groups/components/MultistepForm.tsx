@@ -51,7 +51,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 			onSubmit={isLastPage ? onSubmit : next}
 			schema={activePage.props.schema}
 			mutators={mutators}
-			render={({ handleSubmit, submitting, submitError }) => (
+			render={({ handleSubmit, submitting, submitError, hasValidationErrors }) => (
 				<form
 					className="space-y-2 divide-y divide-gray-200"
 					onSubmit={handleSubmit}
@@ -80,10 +80,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 										</button>
 									)}
 									{!isLastPage && (
-										<button
-											className="bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-											type="submit"
-										>
+										<button onClick={handleSubmit} disabled={submitError || hasValidationErrors} className="bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-50">
 											Next
 										</button>
 									)}
