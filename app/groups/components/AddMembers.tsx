@@ -40,8 +40,9 @@ const NewMemberInput = ({onSubmit}: {onSubmit: (value: string) => void}) => {
       />
 			<button
         type="button"
+				disabled={value === ""}
 				onClick={() => {onSubmit(value); setValue("")}}
-        className="self-end flex-shrink-0 rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="self-end flex-shrink-0 rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:hover:hover:bg-indigo-600"
       >
         Add
       </button>
@@ -62,6 +63,11 @@ export const AddMembers = () => {
 					Add at least three members to your group.
 				</p>
 			</div>
+			{formState.submitErrors?.members && (
+				<div role="alert" className='text-sm text-red-600'>
+					{formState.submitErrors.members}
+				</div>
+			)}
 			<NewMemberInput onSubmit={(value) => {
 				fields.push({name: value})
 			}}/>

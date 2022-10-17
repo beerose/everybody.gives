@@ -16,7 +16,7 @@ export interface MultistepFormProps<S extends z.ZodType<any, any>>
 	children: MultistepPage<any>[];
 }
 
-export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{ schema: S, validate?: (...args: any) => Promise<Record<string, string> | null> }>;
+export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{ schema: S, validate?: (...args: any) => Promise<Record<string, string> | null> | Record<string, string> | null }>;
 
 export const MultistepForm = <S extends z.ZodType<any, any>>({
 	children,
@@ -30,10 +30,13 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 	const [ page, setPage ] = React.useState(0);
 	const [ initialValues, setInitialValues ] = React.useState(props.initialValues);
 
-	const next = async (values: Parameters<FinalFormProps<z.infer<S>>['onSubmit']>[0]) => {
+	const next = async (values: Parameters<FinalFormProps<z.infer<S>>['onSubmit']>[0], ...args: any) => {
 		if (activePage.props.validate) {
 			const result = await activePage.props.validate(values);
 			if (result) return result
+		}
+		if (isLastPage) {
+			return onSubmit(values, args);
 		}
 		setPage((s) => Math.max(s + 1, children.length - 1));
 		setInitialValues(values);
@@ -48,7 +51,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 		<Form
 			initialValues={initialValues}
 			validate={validateZodSchema(activePage.props.schema)}
-			onSubmit={isLastPage ? onSubmit : next}
+			onSubmit={next}
 			schema={activePage.props.schema}
 			mutators={mutators}
 			render={({ handleSubmit, submitting, submitError, hasValidationErrors }) => (
@@ -86,7 +89,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 									{isLastPage && (
 										<button
 											onClick={handleSubmit}
-											disabled={submitting}
+											disabled={submitting || submitError || hasValidationErrors}
 											type="submit"
 											className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-default"
 										>
@@ -103,6 +106,6 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 	);
 };
 
-const MultistepFormPage = <T extends z.ZodType<any, any>>(props: { schema?: T; children: any, validate?: (...args: any) => Promise<Record<string, string> | null> }) => props.children;
+const MultistepFormPage = <T extends z.ZodType<any, any>>(props: { schema?: T; children: any, validate?: (...args: any) => Promise<Record<string, string> | null> | Record<string, string> | null }) => props.children;
 
 MultistepForm.Page = MultistepFormPage;

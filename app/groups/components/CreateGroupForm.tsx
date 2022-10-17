@@ -52,7 +52,16 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
       <MultistepForm.Page schema={CreateGroupBasicInfo} validate={validateGroupNameMutation}>
         <NewGroupBasicFields />
       </MultistepForm.Page>
-      <MultistepForm.Page schema={CreateGroupMembersInfo}>
+      <MultistepForm.Page schema={CreateGroupMembersInfo} validate={values => {
+        if (values.members.length < 3) {
+          return { members: "You have to add at least three group members" }
+        }
+        const uniqueMembers = new Set(values.members.map(m => m.name))
+        if (uniqueMembers.size !== values.members.length) {
+          return { members: "You have to add unique group members" }
+        }
+        return null
+      }}>
         <AddMembers />
       </MultistepForm.Page>
     </MultistepForm>
