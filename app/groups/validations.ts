@@ -17,7 +17,7 @@ export const CreateGroupMembersInfo = z.object({
 				constraints: z.array(z.string()).optional()
 			})
 		)
-		.min(4)
+		.min(3)
 });
 
 export const CreateGroupInput = CreateGroupBasicInfo.merge(CreateGroupMembersInfo);

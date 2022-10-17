@@ -6,9 +6,9 @@ import { validateZodSchema } from 'blitz';
 export interface MultistepFormProps<S extends z.ZodType<any, any>>
 	extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit' | 'children'> {
 	/** Text to display in the submit button */
-	submitText: string;
 	onSubmit: FinalFormProps<z.infer<S>>['onSubmit'];
 	initialValues?: FinalFormProps<z.infer<S>>['initialValues'];
+	schema?: S;
 	formName?: string;
 	mutators?: FinalFormProps<z.infer<S>>['mutators'];
 	formDescription?: string;
@@ -17,61 +17,49 @@ export interface MultistepFormProps<S extends z.ZodType<any, any>>
 
 export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{ schema: S }>;
 
-export const MultistepForm = <S extends z.ZodType<any, any>>(props: MultistepFormProps<S>) => {
+export const MultistepForm = <S extends z.ZodType<any, any>>({
+	children,
+	schema,
+	onSubmit,
+	formName,
+	formDescription,
+	mutators,
+	...props
+}: MultistepFormProps<S>) => {
 	const [ page, setPage ] = React.useState(0);
 	const [ initialValues, setInitialValues ] = React.useState(props.initialValues);
 
 	const next = (values: Parameters<FinalFormProps<z.infer<S>>['onSubmit']>[0]) => {
-		setPage((s) => Math.max(s + 1, props.children.length - 1));
-		setInitialValues(prev => ({...prev, ...values}));
+		setPage((s) => Math.max(s + 1, children.length - 1));
+		setInitialValues(values);
 	};
 
 	const previous = () => setPage((p) => Math.max(p - 1, 0));
 
-	const validate = async (values: any) => {
-		const activePage = React.Children.toArray(props.children)[page] as React.ReactElement;
-		if (activePage.props.schema) {
-			const result = await validateZodSchema(activePage.props.schema)(values);
-			return result
-		}
-
-		return {};
-	};
-
-	const handleSubmit = (values: any, rest: any) => {
-		const { children, onSubmit } = props;
-		const isLastPage = page === React.Children.count(children) - 1;
-		console.log({isLastPage, values, rest})
-		if (isLastPage) {
-			return onSubmit(values, rest);
-		} else {
-			next(values);
-		}
-	};
-
-	const activePage = React.Children.toArray(props.children)[page];
-	const isLastPage = page === React.Children.count(props.children) - 1;
+	const activePage = React.Children.toArray(children)[page] as MultistepPage<any>;
+	const isLastPage = page === React.Children.count(children) - 1;
 
 	return (
 		<Form
 			initialValues={initialValues}
-			validate={validate}
-			onSubmit={handleSubmit}
-			mutators={props.mutators}
-			render={({ handleSubmit, submitting, submitError }) => (
+			validate={validateZodSchema(activePage.props.schema)}
+			onSubmit={isLastPage ? onSubmit : next}
+			schema={activePage.props.schema}
+			mutators={mutators}
+			render={({ handleSubmit, submitting, error }) => (
 				<form
 					className="space-y-4 divide-y divide-gray-200"
-					{...props}
 					onSubmit={handleSubmit}
+					{...props}
 					autoComplete="off"
 				>
 					<div className="space-y-4 divide-y divide-gray-200 sm:space-y-5">
 						<div className="space-y-4">
 							{activePage}
 
-							{submitError && (
+							{error && (
 								<div role="alert" style={{ color: 'red' }}>
-									{submitError}
+									{error}
 								</div>
 							)}
 
@@ -96,6 +84,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>(props: MultistepFor
 									)}
 									{isLastPage && (
 										<button
+											onClick={handleSubmit}
 											disabled={submitting}
 											type="submit"
 											className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-default"

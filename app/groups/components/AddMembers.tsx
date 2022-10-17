@@ -1,25 +1,50 @@
 import { UserGroupIcon, XIcon } from '@heroicons/react/outline';
-import LabeledTextField from 'app/core/components/LabeledTextField';
+import { useState } from 'react';
 import { useFormState } from 'react-final-form';
 import { useFieldArray } from 'react-final-form-arrays';
 
-const NewMemberInput = ({idx, onDelete, onChange}: {idx: number, onDelete: () => void, onChange: (value: string) => void}) => {
-	return (
-		<li className="flex items-center justify-between space-x-3 py-1 w-96">
-			<div className='w-full'>
-			<LabeledTextField disabled={idx === 0} name={`members[${idx}].name`} onChangeHook={onChange} placeholder="New group member name..."/>
-			</div>
-			<div className="flex-shrink-0  sm:pt-5">
-				<button
-					onClick={() => {
-						onDelete();
-					}}
-					type="button"
-					className="inline-flex items-center rounded-full border border-transparent bg-gray-100 py-2 px-2 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+type MembersCardsProps = {
+	name: string;
+	onDelete: () => void;
+}
+const MembersCard = ({name, onDelete}: MembersCardsProps) => {
+  return (
+    <li className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow">
+			<button
+				onClick={() => {
+					onDelete();
+				}}
+				type="button"
+				className="m-2 self-end text-gray-400 hover:text-gray-700 inline-flex items-center rounded-full border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 				>
-					<XIcon className="h-5 w-5 text-gray-600" aria-hidden="true" />
-				</button>
-			</div>
+				<XIcon className="h-5 w-5" aria-hidden="true" />
+			</button>
+      <div className="flex flex-1 flex-col p-8">
+        <h3 className="text-sm font-medium text-gray-700">{name}</h3>
+      </div>
+    </li>
+  )
+}
+
+const NewMemberInput = ({onSubmit}: {onSubmit: (value: string) => void}) => {
+	const [value, setValue] = useState("")
+
+	return (
+		<li className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-b border-gray-300 pb-6">
+			<input
+        type="text"
+				value={value}
+				onChange={(e) => setValue(e.target.value)}
+        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm col-span-2"
+        placeholder="New member name..."
+      />
+			<button
+        type="button"
+				onClick={() => {onSubmit(value); setValue("")}}
+        className="self-end flex-shrink-0 rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      >
+        Add
+      </button>
 		</li>
 	)
 }
@@ -29,19 +54,21 @@ export const AddMembers = () => {
 	const formState = useFormState();
 
 	return (
-		<div className="">
+		<div className="space-y-8">
 			<div className="text-center">
 				<UserGroupIcon className="mx-auto h-12 w-12 text-gray-400 stroke-1" />
 				<h2 className="mt-1 text-lg font-medium text-gray-900">Group members</h2>
+				<p className='text-gray-500 text-sm self-center'>
+					Add at least three members to your group.
+				</p>
 			</div>
+			<NewMemberInput onSubmit={(value) => {
+				fields.push({name: value})
+			}}/>
 			<div>
-				<ul role="list" className="mt-4">
-					{formState.values.members?.map((_, personIdx) => (
-						<NewMemberInput key={personIdx} idx={personIdx} onDelete={() => fields.remove(personIdx)} onChange={(value) => {
-							if (value && personIdx === fields.value.length - 1) {
-								fields.push({name: ""})
-							}
-						}}/>
+				<ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+					{formState.values.members?.map((value, personIdx) => (
+						<MembersCard key={personIdx} name={value.name} onDelete={() => fields.remove(personIdx)}/>
 					))}
 				</ul>
 			</div>
