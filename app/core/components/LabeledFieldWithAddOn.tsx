@@ -50,7 +50,7 @@ export const LabeledFieldWithAddOn = forwardRef<
 					<input
 						type="text"
 						id={name}
-						className={`block w-full min-w-0 flex-1 rounded-none rounded-r-md ${touched && normalizedError ? 'border-red-500 focus:border-red-500 focus:ring-red-500': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} sm:text-sm`}
+						className={`block w-full min-w-0 flex-1 rounded-none rounded-r-md ${touched && normalizedError ? 'border-red-600 focus:border-red-600 focus:ring-red-600': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} sm:text-sm`}
 						{...input}
 						disabled={submitting}
 						{...props}

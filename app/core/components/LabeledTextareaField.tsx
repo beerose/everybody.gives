@@ -37,7 +37,7 @@ export const LabeledTextareaField = forwardRef<
 				<div className="flex max-w-lg rounded-md shadow-sm">
 					<textarea
 						rows={2}
-						className={`block w-full rounded-md ${touched && normalizedError ? 'border-red-500 focus:border-red-500 focus:ring-red-500': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} shadow-sm sm:text-sm`}
+						className={`block w-full rounded-md ${touched && normalizedError ? 'border-red-600 focus:border-red-600 focus:ring-red-600': "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"} shadow-sm sm:text-sm`}
 						{...input}
 						disabled={submitting}
 						{...props}

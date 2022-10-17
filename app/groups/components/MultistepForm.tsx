@@ -63,7 +63,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 							{activePage}
 
 							{submitError && (
-								<div role="alert" className='text-sm text-red-500'>
+								<div role="alert" className='text-sm text-red-600'>
 									{submitError}
 								</div>
 							)}
