@@ -16,7 +16,7 @@ export interface MultistepFormProps<S extends z.ZodType<any, any>>
 	children: MultistepPage<any>[];
 }
 
-export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{ schema: S, validate?: (...args: any) => Promise<{error: string | null}> }>;
+export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{ schema: S, validate?: (...args: any) => Promise<Record<string, string> | null> }>;
 
 export const MultistepForm = <S extends z.ZodType<any, any>>({
 	children,
@@ -33,7 +33,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 	const next = async (values: Parameters<FinalFormProps<z.infer<S>>['onSubmit']>[0]) => {
 		if (activePage.props.validate) {
 			const result = await activePage.props.validate(values);
-			return result
+			if (result) return result
 		}
 		setPage((s) => Math.max(s + 1, children.length - 1));
 		setInitialValues(values);
@@ -62,13 +62,12 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 						<div className="space-y-4">
 							{activePage}
 
-							{submitError && (
-								<div role="alert" className='text-sm text-red-600'>
-									{submitError}
-								</div>
-							)}
-
 							<div className="pt-5">
+								{submitError && (
+									<div role="alert" className='text-sm pb-5 text-red-600'>
+										{submitError}
+									</div>
+								)}
 								<div className="flex justify-end">
 									{page > 0 && (
 										<button
@@ -104,6 +103,6 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 	);
 };
 
-const MultistepFormPage = <T extends z.ZodType<any, any>>(props: { schema?: T; children: any, validate?: (...args: any) => Promise<{error: string | null}> }) => props.children;
+const MultistepFormPage = <T extends z.ZodType<any, any>>(props: { schema?: T; children: any, validate?: (...args: any) => Promise<Record<string, string> | null> }) => props.children;
 
 MultistepForm.Page = MultistepFormPage;

@@ -9,5 +9,5 @@ export default resolver.pipe(resolver.zod(z.object({ name: z.string() })), async
 		return { name: 'Group name already exists' };
 	}
 
-	return {};
+	return null;
 });
