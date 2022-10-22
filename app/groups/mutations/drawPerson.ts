@@ -3,16 +3,20 @@ import db from 'db'
 import { DrawPersonInput } from '../validations'
 
 export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName, groupName }, ctx) => {
-  const existingResult = await db.groupMember.count({
+  const memberInfo = await db.groupMember.findFirst({
     where: {
-      drawResult: memberName,
+      name: memberName,
       group: {
         name: groupName,
       },
     },
   })
 
-  if (existingResult !== 0) {
+  if (!memberInfo) {
+    throw new Error('Member not found')
+  }
+
+  if (memberInfo.drawResult) {
     return { error: 'You already have a person' }
   }
 
@@ -26,7 +30,13 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
     },
   })
 
-  const result = availableMembers[Math.floor(Math.random() * availableMembers.length)]
+  if (availableMembers.length === 0) {
+    return { error: 'No more people to draw' }
+  }
+
+  const result = availableMembers.filter((m) => !memberInfo.cannotDraw.includes(m.name))[
+    Math.floor(Math.random() * availableMembers.length)
+  ]
 
   if (!result) {
     return { error: 'No more people to draw' }
