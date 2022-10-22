@@ -28,7 +28,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
   formName,
   formDescription,
   mutators,
-  ...props,
+  ...props
 }: MultistepFormProps<S>) => {
   const [page, setPage] = React.useState(0)
   const [initialValues, setInitialValues] = React.useState(props.initialValues)
@@ -41,7 +41,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
     if (isLastPage) {
       return onSubmit(values, args)
     }
-    setPage((s) => Math.max(s + 1, children.length - 1))
+    setPage((s) => Math.min(s + 1, children.length - 1))
     setInitialValues(values)
   }
 
@@ -83,7 +83,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
                     <button
                       onClick={handleSubmit}
                       disabled={submitError || hasValidationErrors}
-                      className="bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-50"
+                      className="ml-3 bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-50"
                     >
                       Next
                     </button>

@@ -13,12 +13,22 @@ export const CreateGroupMembersInfo = z.object({
   members: z.array(
     z.object({
       name: z.string(),
-      constraints: z.array(z.string()).optional(),
     }),
   ),
 })
 
-export const CreateGroupInput = CreateGroupBasicInfo.merge(CreateGroupMembersInfo)
+export const CreateGroupRules = z.object({
+  rules: z
+    .array(
+      z.object({
+        person1: z.string(),
+        person2: z.string(),
+      }),
+    )
+    .default([]),
+})
+
+export const CreateGroupInput = CreateGroupBasicInfo.merge(CreateGroupMembersInfo).merge(CreateGroupRules)
 
 export const GetGroupInput = z.object({
   groupName: z.string(),
