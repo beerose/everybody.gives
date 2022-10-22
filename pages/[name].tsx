@@ -1,8 +1,9 @@
 import { useSession } from "@blitzjs/auth"
 import { BlitzPage, Routes } from "@blitzjs/next"
-import { useQuery } from "@blitzjs/rpc"
+import { useMutation, useQuery } from "@blitzjs/rpc"
 import { ArrowRightIcon } from "@heroicons/react/outline"
 import Layout from "app/core/layouts/Layout"
+import drawPerson from "app/groups/mutations/drawPerson"
 import getGroup from "app/groups/queries/getGroup"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -10,6 +11,7 @@ import { useRouter } from "next/router"
 const GroupPage: BlitzPage = () => {
   const router = useRouter()
   const session = useSession()
+  const [drawPersonMutation] = useMutation(drawPerson)
 
   if (!router.query.name || typeof router.query.name !== "string") {
     return (
@@ -49,16 +51,27 @@ const GroupPage: BlitzPage = () => {
         </h1>
         <div className="flex justify-start my-6">
           <div className="inline">
-            <Link href={Routes.NewGroup()}>
-              <a className="cursor-pointer group flex flex-row w-full whitespace-nowrap h-full items-center justify-center rounded-full border-2 border-black bg-action px-4 font-semibold py-3 text-xl hover:text-background hover:bg-black md:py-4 md:px-6">
-                <div className="flex pt-1">
-                  <ArrowRightIcon className="transition transform group-hover:translate-x-[135px] motion-reduce:transition-none motion-reduce:group-hover:transform-none w-6 h-6 stroke-1.5" />
-                  <span className="transition transform group-hover:-translate-x-6 motion-reduce:transition-none motion-reduce:group-hover:transform-none ml-1 group-hover:ml-0">
-                    DRAW A NAME
-                  </span>
-                </div>
-              </a>
-            </Link>
+            <button
+              onClick={async () => {
+                try {
+                  const result = await drawPersonMutation({
+                    groupName: group.name,
+                    memberName: "Ola",
+                  })
+                  console.log({ result })
+                } catch (e) {
+                  console.log(e)
+                }
+              }}
+              className="cursor-pointer group flex flex-row w-full whitespace-nowrap h-full items-center justify-center rounded-full border-2 border-black bg-action px-4 font-semibold py-3 text-xl hover:text-background hover:bg-black md:py-4 md:px-6"
+            >
+              <div className="flex pt-1">
+                <ArrowRightIcon className="transition transform group-hover:translate-x-[135px] motion-reduce:transition-none motion-reduce:group-hover:transform-none w-6 h-6 stroke-1.5" />
+                <span className="transition transform group-hover:-translate-x-6 motion-reduce:transition-none motion-reduce:group-hover:transform-none ml-1 group-hover:ml-0">
+                  DRAW A NAME
+                </span>
+              </div>
+            </button>
           </div>
         </div>
         <dl>
