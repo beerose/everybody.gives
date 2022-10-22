@@ -16,7 +16,7 @@ model GroupMember {
   id   Int    @id @default(autoincrement())
   name String
 
-  constraints String[]
+  cannotDraw  String[] @default([])
   drawResult  String?
 
   group   Group  @relation(fields: [groupId], references: [id])
