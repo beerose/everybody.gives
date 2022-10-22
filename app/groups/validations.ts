@@ -28,7 +28,33 @@ export const CreateGroupRules = z.object({
     .default([]),
 })
 
-export const CreateGroupInput = CreateGroupBasicInfo.merge(CreateGroupMembersInfo).merge(CreateGroupRules)
+export const membersRefine = (values, ctx) => {
+  if (values.members.length < 3) {
+    ctx.addIssue({
+      message: 'You have to add at least three group members',
+      path: ['members'],
+      code: z.ZodIssueCode.too_small,
+      inclusive: true,
+      minimum: 3,
+      type: 'array',
+    })
+  }
+  const members = values.members.map((m) => m.name)
+  for (let member of values.members) {
+    if (members.filter((m) => m === member.name).length > 1) {
+      ctx.addIssue({
+        message: `Ooops, looks like you added the same name twice: ${member.name}.`,
+        path: ['members'],
+        code: z.ZodIssueCode.custom,
+      })
+    }
+  }
+  return null
+}
+
+export const CreateGroupInput = CreateGroupBasicInfo.merge(CreateGroupMembersInfo)
+  .merge(CreateGroupRules)
+  .superRefine(membersRefine)
 
 export const GetGroupInput = z.object({
   groupName: z.string(),

@@ -11,6 +11,7 @@ const MembersCard = ({ name, onDelete }: MembersCardsProps) => {
   return (
     <li className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow">
       <button
+				type="button"
         onClick={() => {
           onDelete()
         }}
@@ -71,9 +72,9 @@ export const AddMembers = () => {
           Add at least three members to your group.
         </p>
       </div>
-      {formState.submitErrors?.members && (
+      {formState.errors?.members && (
         <div role="alert" className="text-sm text-red-600">
-          {formState.submitErrors.members}
+          {formState.errors.members}
         </div>
       )}
       <NewMemberInput

@@ -1,7 +1,7 @@
 import { AuthenticationError } from "blitz"
 import { useMutation } from "@blitzjs/rpc"
 import createGroup from "app/groups/mutations/createGroup"
-import { CreateGroupBasicInfo, CreateGroupMembersInfo, CreateGroupRules } from "../validations"
+import { CreateGroupBasicInfo, CreateGroupMembersInfo, CreateGroupRules, membersRefine } from "../validations"
 import { AddMembers } from "./AddMembers"
 import arrayMutators from "final-form-arrays"
 import { Group } from "db"
@@ -48,19 +48,7 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
         <NewGroupBasicFields />
       </MultistepForm.Page>
 
-      <MultistepForm.Page
-        schema={CreateGroupMembersInfo}
-        validate={(values) => {
-          if (values.members.length < 3) {
-            return { members: "You have to add at least three group members" }
-          }
-          const uniqueMembers = new Set(values.members.map((m) => m.name))
-          if (uniqueMembers.size !== values.members.length) {
-            return { members: "You have to add unique group members" }
-          }
-          return null
-        }}
-      >
+      <MultistepForm.Page schema={CreateGroupMembersInfo.superRefine(membersRefine)}>
         <AddMembers />
       </MultistepForm.Page>
 
