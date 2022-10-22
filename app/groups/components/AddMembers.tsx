@@ -14,7 +14,6 @@ const MembersCard = ({ name, onDelete }: MembersCardsProps) => {
         onClick={() => {
           onDelete()
         }}
-        type="button"
         className="m-2 self-end text-gray-400 hover:text-gray-700 inline-flex items-center rounded-full border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
       >
         <XIcon className="h-5 w-5" aria-hidden="true" />
@@ -45,7 +44,7 @@ const NewMemberInput = ({ onSubmit }: { onSubmit: (value: string) => void }) => 
         placeholder="New member name..."
       />
       <button
-        type="button"
+        type="submit"
         disabled={value === ""}
         onClick={() => {
           onSubmit(value)
