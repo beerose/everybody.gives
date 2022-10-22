@@ -20,7 +20,7 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
     return { error: 'You already have a person' }
   }
 
-  const availableMembers = await db.groupMember.findMany({
+  const availableMembers = (await db.groupMember.findMany({
     where: {
       name: { not: memberName },
       drawResult: null,
@@ -28,15 +28,13 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
         name: groupName,
       },
     },
-  })
+  })).filter((m) => !memberInfo.cannotDraw.includes(m.name))
 
   if (availableMembers.length === 0) {
     return { error: 'No more people to draw' }
   }
 
-  const result = availableMembers.filter((m) => !memberInfo.cannotDraw.includes(m.name))[
-    Math.floor(Math.random() * availableMembers.length)
-  ]
+  const result = availableMembers[Math.floor(Math.random() * availableMembers.length)]
 
   if (!result) {
     return { error: 'No more people to draw' }
