@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import { ArrowRightIcon } from "@heroicons/react/outline"
 import { Card } from "app/core/components/Card"
 import Layout from "app/core/layouts/Layout"
+import { MembersCard } from "app/groups/components/MemberCard"
 import drawPerson from "app/groups/mutations/drawPerson"
 import getGroup from "app/groups/queries/getGroup"
 import Link from "next/link"
@@ -96,11 +97,7 @@ const GroupPage: BlitzPage = () => {
         className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-6"
       >
         {group.members.map((member) => (
-          <li className="col-span-1 flex flex-col rounded-lg bg-background text-center shadow border-2 border-black">
-            <div className="flex flex-1 flex-col p-8">
-              <h3 className=" font-bold text-gray-700">{member.name}</h3>
-            </div>
-          </li>
+          <MembersCard key={member.name} name={member.name} />
         ))}
       </ul>
     </Card>
