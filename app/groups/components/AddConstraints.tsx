@@ -14,6 +14,7 @@ const RuleInputs = ({
   formState: { person1: string; person2: string }[]
   onDelete: () => void
 }) => {
+  const formStateErrors = useFormState()
   const [person1, setPerson1] = useState(formState[idx]?.person1 ?? "")
   const [_person2, setPerson2] = useState(formState[idx]?.person2 ?? "")
   const [selectedLeft, setSelectedLeft] = useState(formState.map((rule) => rule.person1))
@@ -30,7 +31,9 @@ const RuleInputs = ({
         <Field
           component="select"
           name={`rules[${idx}].person1`}
-          className="block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500"
+          className={`block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500
+            ${formStateErrors?.errors?.rules?.[idx]?.person1 ? "border-red-500" : ""}
+          `}
         >
           <option hidden>Select a person</option>
           {members
@@ -47,7 +50,9 @@ const RuleInputs = ({
         <Field
           component="select"
           name={`rules[${idx}].person2`}
-          className="block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500"
+          className={`block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500
+          ${formStateErrors?.errors?.rules?.[idx]?.person2 ? "border-red-500" : ""}
+          `}
         >
           <option hidden value={undefined}>
             Select a person
@@ -76,6 +81,8 @@ export const AddConstraints = () => {
   const formState = useFormState()
   const { fields } = useFieldArray("rules")
 
+  console.log({ formState })
+
   return (
     <div className="space-y-8">
       <div className="text-center">
@@ -89,21 +96,11 @@ export const AddConstraints = () => {
           {formState.submitErrors.members}
         </div>
       )}
-      <div>
-        <p className="text-gray-500  self-center">You haven't added any rules yet.</p>
-        <div className="mt-6">
-          <button
-            onClick={() => {
-              fields.push({ person1: undefined, person2: undefined })
-            }}
-            type="button"
-            className="inline-flex items-center rounded-md border border-transparent bg-primary-600 px-4 py-2  font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-          >
-            <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            New Rule
-          </button>
-        </div>
-        <ul role="list" className="flex flex-col space-y-6 mt-6">
+      <div className="space-y-4">
+        {!formState.values?.rules?.length && (
+          <span className="text-gray-500  self-center">You haven't added any rules yet.</span>
+        )}
+        <ul role="list" className="flex flex-col space-y-6">
           {formState.values.rules?.map((_, idx) => {
             return (
               <RuleInputs
@@ -116,6 +113,17 @@ export const AddConstraints = () => {
             )
           })}
         </ul>
+        <button
+          disabled={formState.errors?.rules}
+          onClick={() => {
+            fields.push({ person1: undefined, person2: undefined })
+          }}
+          type="button"
+          className="inline-flex items-center rounded-md border border-transparent bg-primary-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:hover:bg-primary-600 disabled:opacity-50"
+        >
+          <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+          New Rule
+        </button>
       </div>
     </div>
   )

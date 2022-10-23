@@ -71,7 +71,7 @@ export const AddMembers = () => {
           Group members
         </h1>
       </div>
-      {formState.errors?.members && "members" in formState.dirtyFieldsSinceLastSubmit && (
+      {formState.errors?.members && "members" && (
         <div role="alert" className=" text-gray-600 text-center">
           ⚠️ {formState.errors.members}
         </div>

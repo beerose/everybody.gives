@@ -8,7 +8,7 @@ const NewGroup: BlitzPage = () => {
 
   return (
     <Layout title="New Group">
-      <div className="py-4 lg:py-8 w-full flex flex-col items-center">
+      <div className="py-4 lg:py-8 w-full h-full flex flex-col items-center justify-center">
         <CreateGroupForm
           onSuccess={async (newGroup) => {
             await router.push(Routes.GroupPage({ name: newGroup.name }))

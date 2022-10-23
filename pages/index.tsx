@@ -2,7 +2,6 @@ import Layout from "app/core/layouts/Layout"
 import { Routes, BlitzPage } from "@blitzjs/next"
 import Link from "next/link"
 import React from "react"
-import { ArrowRightIcon } from "@heroicons/react/outline"
 import { Button } from "app/core/components/Button"
 
 const Home: BlitzPage = () => {

@@ -66,7 +66,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
       mutators={mutators}
       render={({ handleSubmit, submitting, submitError, hasValidationErrors }) => (
         <form
-          className="space-y-2 w-full max-w-xl mx-auto"
+          className="space-y-2 w-full mx-auto"
           onSubmit={handleSubmit}
           {...props}
           autoComplete="off"
@@ -95,7 +95,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
                   {isLastPage && (
                     <Button
                       type="submit"
-                      width={200}
+                      width={150}
                       disabled={submitting || submitError || hasValidationErrors}
                     >
                       {submitting ? (
