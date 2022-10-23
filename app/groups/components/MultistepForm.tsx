@@ -88,7 +88,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
                     </Button>
                   )}
                   {!isLastPage && (
-                    <Button width={121} type="submit" disabled={submitError || hasValidationErrors}>
+                    <Button width={121} type="submit">
                       Next
                     </Button>
                   )}
@@ -123,7 +123,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
                           Saving...
                         </div>
                       ) : (
-                        "Create"
+                        "CREATE"
                       )}
                     </Button>
                   )}

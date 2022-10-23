@@ -31,7 +31,7 @@ export const LabeledFieldWithAddOn = forwardRef<HTMLInputElement, LabeledTextFie
     const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
 
     return (
-      <div className="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:pt-5" {...outerProps}>
+      <div className="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4" {...outerProps}>
         <label
           htmlFor={name}
           className="block text-right font-medium text-gray-700 sm:mt-px sm:pt-2"

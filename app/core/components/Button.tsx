@@ -36,7 +36,7 @@ export function Button({
 
       className +=
         " cursor-pointer group flex flex-row whitespace-nowrap h-full items-center justify-center" +
-        " rounded-full border-2 border-black bg-action hover:text-background hover:bg-black"
+        " rounded-full border-2 border-black bg-action hover:text-background hover:bg-black disabled:opacity-50"
 
       content = (
         <div className="flex pt-1">

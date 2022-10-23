@@ -1,3 +1,4 @@
+import { GiftIcon } from "@heroicons/react/solid"
 import { LabeledFieldWithAddOn } from "app/core/components/LabeledFieldWithAddOn"
 import LabeledTextareaField from "app/core/components/LabeledTextareaField"
 import LabeledTextField from "app/core/components/LabeledTextField"
@@ -8,7 +9,12 @@ export const NewGroupBasicFields = () => {
 
   return (
     <>
-      <h1 className="text-5xl font-black tracking-tight text-gray-700 text-center">New group</h1>
+      <div className="text-center">
+        <GiftIcon className="mx-auto h-20 w-20 text-gray-400" />
+        <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700 text-center">
+          New Group
+        </h1>
+      </div>
       <LabeledFieldWithAddOn
         addOn="everybody.gives/"
         name="name"

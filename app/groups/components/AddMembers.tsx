@@ -19,7 +19,7 @@ const MembersCard = ({ name, onDelete }: MembersCardsProps) => {
       >
         <XIcon className="h-5 w-5" aria-hidden="true" />
       </button>
-      <div className="flex flex-1 flex-col p-8">
+      <div className="flex flex-1 flex-col py-8 px-4">
         <h3 className=" font-medium text-gray-700">{name}</h3>
       </div>
     </li>
@@ -35,13 +35,13 @@ const NewMemberInput = ({ onSubmit }: { onSubmit: (value: string) => void }) => 
   }, [])
 
   return (
-    <li className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 border-b border-gray-300 pb-6">
+    <li className="grid grid-cols-1 gap-6 sm:grid-cols-4 pb-6">
       <input
         ref={ref}
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="block indent-2 py-4 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 col-span-2"
+        className="block indent-2 py-4 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 col-span-3"
         placeholder="New member name..."
       />
       <button
@@ -71,7 +71,7 @@ export const AddMembers = () => {
           Group members
         </h1>
       </div>
-      {formState.errors?.members && (
+      {formState.errors?.members && "members" in formState.dirtyFieldsSinceLastSubmit && (
         <div role="alert" className=" text-gray-600 text-center">
           ⚠️ {formState.errors.members}
         </div>

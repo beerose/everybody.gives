@@ -1,4 +1,4 @@
-import { CogIcon, PlusIcon, XIcon } from "@heroicons/react/outline"
+import { CogIcon, PlusIcon, XIcon } from "@heroicons/react/solid"
 import { useEffect, useState } from "react"
 import { Field, useFormState } from "react-final-form"
 import { useFieldArray } from "react-final-form-arrays"
@@ -79,11 +79,10 @@ export const AddConstraints = () => {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <CogIcon className="mx-auto h-12 w-12 text-gray-400 stroke-1" />
-        <h2 className="mt-1 text-lg font-medium text-gray-900">Exclusions</h2>
-        <p className="text-gray-500  self-center">
-          You can add rules to your group to configure who cannot be matched with who.
-        </p>
+        <CogIcon className="mx-auto h-20 w-20 text-gray-400" />
+        <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700 text-center">
+          Exclusions
+        </h1>
       </div>
       {formState.submitErrors?.members && (
         <div role="alert" className=" text-red-600">
