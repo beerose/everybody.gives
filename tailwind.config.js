@@ -20,6 +20,15 @@ module.exports = {
     fontFamily: {
       sans: ["Arima Madurai", ...defaultTheme.fontFamily.sans],
     },
+    keyframes: {
+      wiggle: {
+        "0%, 50%, 100%": { transform: "rotate(-3deg) scale(1.2)" },
+        "25%, 75%": { transform: "rotate(3deg) scale(1.2)" },
+      },
+    },
+    animation: {
+      wiggle: "wiggle 1s ease-in-out infinite",
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 }

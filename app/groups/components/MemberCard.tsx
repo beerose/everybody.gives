@@ -3,11 +3,18 @@ import { XIcon } from "@heroicons/react/outline"
 export type MembersCardsProps = {
   name: string
   onDelete?: () => void
+  id?: string
+  className?: string
 }
 
-export const MembersCard = ({ name, onDelete }: MembersCardsProps) => {
+export const MembersCard = ({ name, onDelete, id, className = "" }: MembersCardsProps) => {
   return (
-    <li className="col-span-1 flex flex-col rounded-lg bg-background text-center shadow border-2 border-black">
+    <li
+      className={
+        "col-span-1 flex flex-col rounded-lg text-center shadow border-2 border-black" + className
+      }
+      id={id}
+    >
       {onDelete && (
         <button
           type="button"

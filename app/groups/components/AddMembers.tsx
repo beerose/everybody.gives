@@ -63,6 +63,7 @@ export const AddMembers = () => {
         <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-3 md:grid-cols-4">
           {fields.value?.map((value, personIdx) => (
             <MembersCard
+              className="bg-background"
               key={personIdx}
               name={value.name}
               onDelete={() => fields.remove(personIdx)}

@@ -16,10 +16,6 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
     throw new Error('Member not found')
   }
 
-  if (memberInfo.drawResult) {
-    return { error: 'You already have a person' }
-  }
-
   const availableMembers = (await db.groupMember.findMany({
     where: {
       name: { not: memberName },
@@ -31,7 +27,7 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
   })).filter((m) => !memberInfo.cannotDraw.includes(m.name))
 
   if (availableMembers.length === 0) {
-    return { error: 'No more people to draw' }
+    return { error: 'Oops, it looks like there are no more people to draw 😬. Contact your group\'s admin.' }
   }
 
   const result = availableMembers[Math.floor(Math.random() * availableMembers.length)]
@@ -40,14 +36,20 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
     return { error: 'No more people to draw' }
   }
 
-  await db.groupMember.update({
-    where: {
-      id: result.id,
-    },
-    data: {
-      drawResult: memberName,
-    },
-  })
-
-  return { result: result.name }
+  try {
+    await db.groupMember.update({
+      where: {
+        id: result.id,
+      },
+      data: {
+        drawResult: memberName,
+      },
+    })
+    return { result: result.name }
+  } catch (e) {
+    if (e.code === "P2002" && e.meta?.target?.includes("drawResult")) {
+      return { error: 'Oops, it looks like you have your person 😬. Ask your group\'s admin if you forgot who it was!' }
+    }
+    throw e
+  }
 })

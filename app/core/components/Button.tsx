@@ -1,5 +1,5 @@
 import ArrowRightIcon from "@heroicons/react/outline/ArrowRightIcon"
-import { CSSProperties, ReactNode } from "react"
+import { ReactNode } from "react"
 
 export type ButtonProps = (
   | ({ as?: "button" } & React.ComponentPropsWithoutRef<"button">)
@@ -10,10 +10,12 @@ export type ButtonProps = (
         /** Needed for animation. */
         width: number
         variant?: "primary"
+        disabled?: boolean
       }
     | {
         width?: number
         variant: "secondary"
+        disabled?: boolean
       }
   )
 
@@ -36,15 +38,25 @@ export function Button({
 
       className +=
         " cursor-pointer group flex flex-row whitespace-nowrap h-full items-center justify-center" +
-        " rounded-full border-2 border-black bg-action hover:text-background hover:bg-black disabled:opacity-50"
+        " rounded-full border-2 border-black bg-action hover:text-background hover:bg-black disabled:opacity-50 disabled:hover:bg-action disabled:hover:text-black disabled:cursor-default"
 
       content = (
         <div className="flex pt-1">
           <ArrowRightIcon
             style={{ "--translateX": width - 48 - 24 - 3 + "px" } as {}}
-            className="transition transform group-hover:translate-x-[var(--translateX)] motion-reduce:transition-none motion-reduce:group-hover:transform-none w-6 h-6 stroke-1.5"
+            className={`w-6 h-6 stroke-1.5 ${
+              rest.disabled
+                ? ""
+                : "transition transform group-hover:translate-x-[var(--translateX)] motion-reduce:transition-none motion-reduce:group-hover:transform-none"
+            }`}
           />
-          <span className="transition transform group-hover:-translate-x-6 motion-reduce:transition-none motion-reduce:group-hover:transform-none ml-1 group-hover:ml-0">
+          <span
+            className={`ml-1 ${
+              rest.disabled
+                ? ""
+                : "transition transform group-hover:-translate-x-6 motion-reduce:transition-none motion-reduce:group-hover:transform-none group-hover:ml-0"
+            }`}
+          >
             {children}
           </span>
         </div>
