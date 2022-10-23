@@ -32,9 +32,7 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
 
     return (
       <div
-        className={`sm:grid ${
-          label ? "sm:grid-cols-4" : ""
-        } sm:items-start sm:gap-4 sm:border-t sm:border-gray-200`}
+        className={`sm:grid ${label ? "sm:grid-cols-4" : ""} sm:items-start sm:gap-4`}
         {...outerProps}
       >
         {label && (
@@ -48,15 +46,15 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
         )}
 
         <div className={`mt-1 sm:col-span-3 sm:mt-0`}>
-          <div className="flex rounded-md shadow-sm">
+          <div className="flex rounded-md">
             <input
               data-lpignore="true"
               type="text"
               id={name}
-              className={`block px-0 indent-6 py-4 w-full min-w-0 flex-1 rounded-md ${
+              className={`block border-2 bg-background px-0 indent-6 py-4 w-full min-w-0 flex-1 rounded-md ${
                 touched && normalizedError
                   ? "border-red-600 focus:border-red-600 focus:ring-red-600"
-                  : "border-gray-300 focus:border-primary-500 focus:ring-primary-500"
+                  : "border-gray-600 focus:border-primary-500 focus:ring-primary-500"
               }`}
               {...input}
               disabled={submitting}

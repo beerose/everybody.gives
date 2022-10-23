@@ -41,7 +41,7 @@ const NewMemberInput = ({ onSubmit }: { onSubmit: (value: string) => void }) => 
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="block indent-6 py-4 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 col-span-2"
+        className="block indent-2 py-4 w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 col-span-2"
         placeholder="New member name..."
       />
       <button
@@ -64,7 +64,7 @@ export const AddMembers = () => {
   const formState = useFormState()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-full">
       <div className="text-center">
         <UserGroupIcon className="mx-auto h-20 w-20 text-gray-400" />
         <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700 text-center">
@@ -72,8 +72,8 @@ export const AddMembers = () => {
         </h1>
       </div>
       {formState.errors?.members && (
-        <div role="alert" className=" text-red-600">
-          {formState.errors.members}
+        <div role="alert" className=" text-gray-600 text-center">
+          ⚠️ {formState.errors.members}
         </div>
       )}
       <NewMemberInput
