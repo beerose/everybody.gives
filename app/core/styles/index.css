@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #__next {
-  background-color: #EDE7E2;
+html {
+  background-color: #ede7e2;
+}
+
+html,
+body,
+#__next {
   height: 100%;
   width: 100%;
 }

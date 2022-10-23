@@ -11,12 +11,12 @@ export const NewGroupBasicFields = () => {
       <LabeledFieldWithAddOn
         addOn="everybody.gives/"
         name="name"
-        label="Group Name *"
+        label="Group Name"
         placeholder="my-party-2022"
       />
       <LabeledTextField
         name="createdBy"
-        label="Your Name *"
+        label="Your Name"
         placeholder="Alex"
         onChangeHook={(value) => {
           form.change("members", [{ name: value }])
@@ -24,16 +24,17 @@ export const NewGroupBasicFields = () => {
       />
       <LabeledTextField
         name="password"
-        label="Gorup's Password *"
+        label="Group's Password"
         placeholder="Password"
         type="password"
       />
-      <LabeledTextField name="eventName" label="Event name *" placeholder="Christmas Eve 2022" />
+      <LabeledTextField name="eventName" label="Event name" placeholder="Christmas Eve 2022" />
       <LabeledTextareaField
         name="description"
         label="Description"
         placeholder={`Christmas Eve 2022
 24/12/2022, Wroclaw, 5pm`}
+        optional
       />
     </>
   )

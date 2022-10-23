@@ -73,16 +73,16 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
         submitFailed,
       }) => (
         <form
-          className="space-y-2 divide-y divide-gray-200"
+          className="space-y-2 divide-y divide-gray-200 w-full max-w-xl mx-auto"
           onSubmit={handleSubmit}
           {...props}
           autoComplete="off"
         >
           <div className="space-y-4 divide-y divide-gray-200 sm:space-y-5">
-            <div className="space-y-4">
+            <div className="space-y-7">
               {activePage}
 
-              <div className="pt-5">
+              <div>
                 {submitError && (
                   <div role="alert" className="text-sm pb-5 text-red-600">
                     {submitError}
