@@ -34,7 +34,7 @@ export const LabeledTextareaField = forwardRef<HTMLTextAreaElement, LabeledTextF
           {...labelProps}
         >
           {label}
-          {optional && <span className="block text-sm text-gray-500 font-semibold">Optional</span>}
+          {optional && <span className="block  text-gray-500 font-semibold">Optional</span>}
         </label>
         <div className="mt-1 sm:col-span-3 sm:mt-0">
           <div className="flex rounded-md shadow-sm">
@@ -43,7 +43,7 @@ export const LabeledTextareaField = forwardRef<HTMLTextAreaElement, LabeledTextF
               className={`block px-6 py-4 w-full rounded-md ${
                 touched && normalizedError
                   ? "border-red-600 focus:border-red-600 focus:ring-red-600"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-primary-500 focus:ring-primary-500"
               } shadow-sm`}
               {...input}
               disabled={submitting}

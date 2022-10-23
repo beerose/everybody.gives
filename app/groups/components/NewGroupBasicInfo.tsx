@@ -8,6 +8,7 @@ export const NewGroupBasicFields = () => {
 
   return (
     <>
+      <h1 className="text-5xl font-black tracking-tight text-gray-700 text-center">New group</h1>
       <LabeledFieldWithAddOn
         addOn="everybody.gives/"
         name="name"

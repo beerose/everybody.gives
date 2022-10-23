@@ -30,7 +30,7 @@ const RuleInputs = ({
         <Field
           component="select"
           name={`rules[${idx}].person1`}
-          className="block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+          className="block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500"
         >
           <option hidden>Select a person</option>
           {members
@@ -42,12 +42,12 @@ const RuleInputs = ({
             ))}
         </Field>
       </div>
-      <div className="block text-sm font-medium text-gray-700">cannot draw</div>
+      <div className="block  font-medium text-gray-700">cannot draw</div>
       <div>
         <Field
           component="select"
           name={`rules[${idx}].person2`}
-          className="block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+          className="block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500"
         >
           <option hidden value={undefined}>
             Select a person
@@ -64,7 +64,7 @@ const RuleInputs = ({
       <button
         onClick={onDelete}
         type="button"
-        className="m-2 self-end text-gray-400 hover:text-gray-700 inline-flex items-center rounded-full border border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="m-2 self-end text-gray-400 hover:text-gray-700 inline-flex items-center rounded-full border border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
       >
         <XIcon className="h-5 w-5" aria-hidden="true" />
       </button>
@@ -81,24 +81,24 @@ export const AddConstraints = () => {
       <div className="text-center">
         <CogIcon className="mx-auto h-12 w-12 text-gray-400 stroke-1" />
         <h2 className="mt-1 text-lg font-medium text-gray-900">Exclusions</h2>
-        <p className="text-gray-500 text-sm self-center">
+        <p className="text-gray-500  self-center">
           You can add rules to your group to configure who cannot be matched with who.
         </p>
       </div>
       {formState.submitErrors?.members && (
-        <div role="alert" className="text-sm text-red-600">
+        <div role="alert" className=" text-red-600">
           {formState.submitErrors.members}
         </div>
       )}
       <div>
-        <p className="text-gray-500 text-sm self-center">You haven't added any rules yet.</p>
+        <p className="text-gray-500  self-center">You haven't added any rules yet.</p>
         <div className="mt-6">
           <button
             onClick={() => {
               fields.push({ person1: undefined, person2: undefined })
             }}
             type="button"
-            className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex items-center rounded-md border border-transparent bg-primary-600 px-4 py-2  font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
           >
             <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
             New Rule

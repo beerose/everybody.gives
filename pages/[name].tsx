@@ -76,21 +76,19 @@ const GroupPage: BlitzPage = () => {
         </div>
         <dl>
           <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-3">
-            <dt className="text-sm font-bold text-gray-500">Group url</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <dt className=" font-bold text-gray-500">Group url</dt>
+            <dd className="mt-1  text-gray-900 sm:col-span-2 sm:mt-0">
               https://everybody.gives/{group.name}
             </dd>
           </div>
           <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-3">
-            <dt className="text-sm font-bold text-gray-500">Created by</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">{group.createdBy}</dd>
+            <dt className=" font-bold text-gray-500">Created by</dt>
+            <dd className="mt-1  text-gray-900 sm:col-span-2 sm:mt-0">{group.createdBy}</dd>
           </div>
           {group.description && (
             <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-3">
-              <dt className="text-sm font-bold text-gray-500">Description</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                {group.description}
-              </dd>
+              <dt className=" font-bold text-gray-500">Description</dt>
+              <dd className="mt-1  text-gray-900 sm:col-span-2 sm:mt-0">{group.description}</dd>
             </div>
           )}
         </dl>
@@ -101,7 +99,7 @@ const GroupPage: BlitzPage = () => {
           {group.members.map((member) => (
             <li className="col-span-1 flex flex-col rounded-lg bg-background text-center shadow border-2 border-black">
               <div className="flex flex-1 flex-col p-8">
-                <h3 className="text-sm font-bold text-gray-700">{member.name}</h3>
+                <h3 className=" font-bold text-gray-700">{member.name}</h3>
               </div>
             </li>
           ))}

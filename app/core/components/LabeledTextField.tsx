@@ -56,7 +56,7 @@ export const LabeledTextField = forwardRef<HTMLInputElement, LabeledTextFieldPro
               className={`block px-0 indent-6 py-4 w-full min-w-0 flex-1 rounded-md ${
                 touched && normalizedError
                   ? "border-red-600 focus:border-red-600 focus:ring-red-600"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-primary-500 focus:ring-primary-500"
               }`}
               {...input}
               disabled={submitting}

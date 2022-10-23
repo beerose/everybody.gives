@@ -5,7 +5,15 @@ module.exports = {
   content: ["{pages,app}/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
-      ...colors,
+      inherit: "inherit",
+      current: "currentColor",
+      transparent: "transparent",
+      black: "#000",
+      white: "#fff",
+
+      red: colors.red,
+      gray: colors.stone,
+      primary: colors.emerald,
       background: "#EDE7E2",
       action: "#F5FF7D",
     },

@@ -54,7 +54,7 @@ export const LabeledFieldWithAddOn = forwardRef<HTMLInputElement, LabeledTextFie
               className={`block px-0 indent-3 py-4 w-full min-w-0 flex-1 rounded-none rounded-r-md ${
                 touched && normalizedError
                   ? "border-red-600 focus:border-red-600 focus:ring-red-600"
-                  : "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                  : "border-gray-300 focus:border-primary-500 focus:ring-primary-500"
               }`}
               {...input}
               disabled={submitting}
@@ -64,7 +64,7 @@ export const LabeledFieldWithAddOn = forwardRef<HTMLInputElement, LabeledTextFie
             />
           </div>
           {submitError && (
-            <span role="alert" className="text-sm text-left text-red-600">
+            <span role="alert" className=" text-left text-red-600">
               {submitError}
             </span>
           )}

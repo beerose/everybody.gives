@@ -49,7 +49,7 @@ export function Form<S extends z.ZodType<any, any>>({
                   <div>
                     <h3 className="text-lg font-medium leading-6 text-gray-900">{formName}</h3>
                     {formDescription && (
-                      <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      <p className="mt-1 max-w-2xl  text-gray-500">
                         This information will be displayed publicly so be careful what you share.
                       </p>
                     )}
@@ -68,14 +68,14 @@ export function Form<S extends z.ZodType<any, any>>({
                   <div className="flex justify-end">
                     <button
                       type="button"
-                      className="bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="bg-white rounded-md border border-gray-300 py-2 px-4  font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                     >
                       Cancel
                     </button>
                     <button
                       disabled={submitting}
                       type="submit"
-                      className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-default"
+                      className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-primary-600 py-2 px-4  font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-default"
                     >
                       Save
                     </button>

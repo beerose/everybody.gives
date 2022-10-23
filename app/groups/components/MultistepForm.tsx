@@ -84,11 +84,11 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 
               <div>
                 {submitError && (
-                  <div role="alert" className="text-sm pb-5 text-red-600">
+                  <div role="alert" className=" pb-5 text-red-600">
                     {submitError}
                   </div>
                 )}
-                <div className="flex gap-4 justify-end">
+                <div className="flex gap-3 justify-end">
                   {page > 0 && (
                     <Button type="button" variant="secondary" onClick={previous}>
                       Previous
