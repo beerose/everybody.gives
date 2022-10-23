@@ -11,7 +11,7 @@ const MembersCard = ({ name, onDelete }: MembersCardsProps) => {
   return (
     <li className="col-span-1 flex flex-col rounded-lg bg-white text-center shadow">
       <button
-				type="button"
+        type="button"
         onClick={() => {
           onDelete()
         }}
@@ -64,7 +64,7 @@ export const AddMembers = () => {
   const formState = useFormState()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 w-[400px]">
       <div className="text-center">
         <UserGroupIcon className="mx-auto h-12 w-12 text-gray-400 stroke-1" />
         <h2 className="mt-1 text-lg font-medium text-gray-900">Group members</h2>

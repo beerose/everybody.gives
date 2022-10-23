@@ -1,24 +1,28 @@
-import React, { PropsWithoutRef } from 'react'
-import * as z from 'zod'
-import { Form, FormProps as FinalFormProps } from 'react-final-form'
-import { validateZodSchema } from 'blitz'
-export { FORM_ERROR } from 'final-form'
+import React, { PropsWithoutRef } from "react"
+import * as z from "zod"
+import { Form, FormProps as FinalFormProps } from "react-final-form"
+import { validateZodSchema } from "blitz"
+export { FORM_ERROR } from "final-form"
+
+import { Button } from "../../core/components/Button"
 
 export interface MultistepFormProps<S extends z.ZodType<any, any>>
-  extends Omit<PropsWithoutRef<JSX.IntrinsicElements['form']>, 'onSubmit' | 'children'> {
+  extends Omit<PropsWithoutRef<JSX.IntrinsicElements["form"]>, "onSubmit" | "children"> {
   /** Text to display in the submit button */
-  onSubmit: FinalFormProps<z.infer<S>>['onSubmit']
-  initialValues?: FinalFormProps<z.infer<S>>['initialValues']
+  onSubmit: FinalFormProps<z.infer<S>>["onSubmit"]
+  initialValues?: FinalFormProps<z.infer<S>>["initialValues"]
   schema?: S
   formName?: string
-  mutators?: FinalFormProps<z.infer<S>>['mutators']
+  mutators?: FinalFormProps<z.infer<S>>["mutators"]
   formDescription?: string
   children: MultistepPage<any>[]
 }
 
 export type MultistepPage<S extends z.ZodType<any, any>> = React.ReactElement<{
   schema: S
-  validate?: (...args: any) => Promise<Record<string, string> | null> | Record<string, string> | null
+  validate?: (
+    ...args: any
+  ) => Promise<Record<string, string> | null> | Record<string, string> | null
 }>
 
 export const MultistepForm = <S extends z.ZodType<any, any>>({
@@ -33,7 +37,10 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
   const [page, setPage] = React.useState(0)
   const [initialValues, setInitialValues] = React.useState(props.initialValues)
 
-  const next = async (values: Parameters<FinalFormProps<z.infer<S>>['onSubmit']>[0], ...args: any) => {
+  const next = async (
+    values: Parameters<FinalFormProps<z.infer<S>>["onSubmit"]>[0],
+    ...args: any
+  ) => {
     if (activePage.props.validate) {
       const result = await activePage.props.validate(values)
       if (result) return result
@@ -57,8 +64,20 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
       onSubmit={next}
       schema={activePage.props.schema}
       mutators={mutators}
-      render={({ handleSubmit, submitting, submitError, hasValidationErrors, submitSucceeded, submitFailed }) => (
-        <form className="space-y-2 divide-y divide-gray-200" onSubmit={handleSubmit} {...props} autoComplete="off">
+      render={({
+        handleSubmit,
+        submitting,
+        submitError,
+        hasValidationErrors,
+        submitSucceeded,
+        submitFailed,
+      }) => (
+        <form
+          className="space-y-2 divide-y divide-gray-200"
+          onSubmit={handleSubmit}
+          {...props}
+          autoComplete="off"
+        >
           <div className="space-y-4 divide-y divide-gray-200 sm:space-y-5">
             <div className="space-y-4">
               {activePage}
@@ -69,35 +88,25 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
                     {submitError}
                   </div>
                 )}
-                <div className="flex justify-end">
+                <div className="flex gap-4 justify-end">
                   {page > 0 && (
-                    <button
-                      type="button"
-                      className="bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      onClick={previous}
-                    >
+                    <Button type="button" variant="secondary" onClick={previous}>
                       Previous
-                    </button>
+                    </Button>
                   )}
                   {!isLastPage && (
-                    <button
-											type="button"
-                      onClick={handleSubmit}
-                      disabled={submitError || hasValidationErrors}
-                      className="ml-3 bg-white rounded-md border border-gray-300 py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:bg-gray-50"
-                    >
+                    <Button width={121} type="submit" disabled={submitError || hasValidationErrors}>
                       Next
-                    </button>
+                    </Button>
                   )}
                   {isLastPage && (
-                    <button
-                      onClick={handleSubmit}
-                      disabled={submitting || submitError || hasValidationErrors}
+                    <Button
                       type="submit"
-                      className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-default"
+                      width={200}
+                      disabled={submitting || submitError || hasValidationErrors}
                     >
-                      {
-                        submitting ? <div className="inline-flex items-center">
+                      {submitting ? (
+                        <div className="inline-flex items-center">
                           <svg
                             className="animate-spin mr-2 -ml-1 h-5 w-5 text-white"
                             xmlns="http://www.w3.org/2000/svg"
@@ -119,9 +128,11 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
                             />
                           </svg>
                           Saving...
-                        </div> :
-                        'Create'}
-                    </button>
+                        </div>
+                      ) : (
+                        "Create"
+                      )}
+                    </Button>
                   )}
                 </div>
               </div>
@@ -136,7 +147,9 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
 const MultistepFormPage = <T extends z.ZodType<any, any>>(props: {
   schema?: T
   children: any
-  validate?: (...args: any) => Promise<Record<string, string> | null> | Record<string, string> | null
+  validate?: (
+    ...args: any
+  ) => Promise<Record<string, string> | null> | Record<string, string> | null
 }) => props.children
 
 MultistepForm.Page = MultistepFormPage
