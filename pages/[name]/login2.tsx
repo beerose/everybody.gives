@@ -21,32 +21,34 @@ const GroupLoginPage2: BlitzPage = () => {
 
   return (
     <Layout title="Login">
-      <Card>
-        <div className="text-center">
-          <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700 text-center">
-            Select your name
-          </h1>
-        </div>
-        <ul
-          role="list"
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-10"
-        >
-          {members?.map((member) => {
-            return (
-              <button
-                key={member}
-                className="hover:scale-105"
-                onClick={async () => {
-                  await memberLoginMutation({ groupName: groupname!, memberName: member })
-                  router.push(Routes.GroupPage({ name: groupname! }))
-                }}
-              >
-                <MembersCard name={member} className="bg-background" />
-              </button>
-            )
-          })}
-        </ul>
-      </Card>
+      <div className="h-full w-full flex items-center justify-center ">
+        <Card>
+          <div className="text-center">
+            <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700 text-center">
+              Select your name
+            </h1>
+          </div>
+          <ul
+            role="list"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-10"
+          >
+            {members?.map((member) => {
+              return (
+                <button
+                  key={member}
+                  className="hover:scale-105"
+                  onClick={async () => {
+                    await memberLoginMutation({ groupName: groupname!, memberName: member })
+                    router.push(Routes.GroupPage({ name: groupname! }))
+                  }}
+                >
+                  <MembersCard name={member} className="bg-background" />
+                </button>
+              )
+            })}
+          </ul>
+        </Card>
+      </div>
     </Layout>
   )
 }

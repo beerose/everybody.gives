@@ -44,22 +44,24 @@ const GroupLoginPage: BlitzPage = () => {
 
   return (
     <Layout title="Login">
-      <Card>
-        <>
-          {router.query.error ? (
-            <div role="alert" className="text-red-600 text-left mb-8">
-              ⚠️ Oops, you had an invalid password in the URL. Please try providing it manually.
-            </div>
-          ) : null}
+      <div className="h-full w-full flex items-center justify-center">
+        <Card>
+          <>
+            {router.query.error ? (
+              <div role="alert" className="text-red-600 text-left mb-8">
+                ⚠️ Oops, you had an invalid password in the URL. Please try providing it manually.
+              </div>
+            ) : null}
 
-          <LoginForm
-            password={password}
-            onSuccess={async (group) => {
-              await router.push(Routes.GroupLoginPage2({ name: group.name }))
-            }}
-          />
-        </>
-      </Card>
+            <LoginForm
+              password={password}
+              onSuccess={async (group) => {
+                await router.push(Routes.GroupLoginPage2({ name: group.name }))
+              }}
+            />
+          </>
+        </Card>
+      </div>
     </Layout>
   )
 }
