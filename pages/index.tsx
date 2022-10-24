@@ -7,7 +7,7 @@ import { Button } from "app/core/components/Button"
 const Home: BlitzPage = () => {
   return (
     <Layout title="Home">
-      <main className="h-full flex items-center p-6 sm:p-10">
+      <main className="h-full flex items-center justify-start p-10 sm:p-20 lg:p-36">
         <div className="text-left">
           <h1 className="text-6xl font-extrabold tracking-tight sm:text-8xl flex flex-col">
             <span

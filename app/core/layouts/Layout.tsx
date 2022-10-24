@@ -71,7 +71,7 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
           />
         </svg>
       </div>
-      <div className="h-full w-full flex items-center justify-center relative">{children}</div>
+      <div className="h-full w-full flex relative">{children}</div>
     </React.Fragment>
   )
 }
