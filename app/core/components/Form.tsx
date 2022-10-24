@@ -2,6 +2,7 @@ import { ReactNode, PropsWithoutRef } from "react"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 import { z } from "zod"
 import { validateZodSchema } from "blitz"
+import { Button } from "./Button"
 export { FORM_ERROR } from "final-form"
 
 export interface FormProps<S extends z.ZodType<any, any>>
@@ -16,6 +17,7 @@ export interface FormProps<S extends z.ZodType<any, any>>
   formName?: string
   mutators?: FinalFormProps<z.infer<S>>["mutators"]
   formDescription?: string
+  cancelButton?: boolean
 }
 
 export function Form<S extends z.ZodType<any, any>>({
@@ -55,30 +57,27 @@ export function Form<S extends z.ZodType<any, any>>({
                     )}
                   </div>
                 )}
-                {/* Form fields supplied as children are rendered here */}
                 {children}
 
                 {submitError && (
-                  <div role="alert" style={{ color: "red" }}>
+                  <div role="alert" className=" text-red-600 text-right">
                     {submitError}
                   </div>
                 )}
 
                 <div className="pt-5">
                   <div className="flex justify-end">
-                    <button
-                      type="button"
-                      className="bg-white rounded-md border border-gray-300 py-2 px-4  font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      disabled={submitting}
-                      type="submit"
-                      className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-primary-600 py-2 px-4  font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-default"
-                    >
-                      Save
-                    </button>
+                    {props.cancelButton && (
+                      <button
+                        type="button"
+                        className="bg-white rounded-md border border-gray-300 py-2 px-4  font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                    <Button type="submit" width={130} disabled={submitting}>
+                      {submitText}
+                    </Button>
                   </div>
                 </div>
               </div>

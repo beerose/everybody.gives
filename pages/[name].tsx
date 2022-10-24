@@ -1,22 +1,68 @@
-import { useSession } from "@blitzjs/auth"
 import { BlitzPage, Routes } from "@blitzjs/next"
 import { useMutation, useQuery } from "@blitzjs/rpc"
-import { ArrowRightIcon } from "@heroicons/react/outline"
+import { gSSP } from "app/blitz-server"
 import { Button } from "app/core/components/Button"
 import { Card } from "app/core/components/Card"
 import Layout from "app/core/layouts/Layout"
 import { MembersCard } from "app/groups/components/MemberCard"
 import drawPerson from "app/groups/mutations/drawPerson"
+import groupLogin from "app/groups/mutations/groupLogin"
 import getGroup from "app/groups/queries/getGroup"
+import { AuthenticationError } from "blitz"
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useReward } from "react-rewards"
 
-const GroupPage: BlitzPage = () => {
-  const router = useRouter()
-  const session = useSession()
-  const [drawPersonMutation, { data, error, isLoading }] = useMutation(drawPerson)
-  const [group] = useQuery(getGroup, { groupName: router.query.name as string })
+export const getServerSideProps = gSSP(async ({ query, params, ctx, ...rest }) => {
+  if (ctx.session.$isAuthorized()) {
+    return {
+      props: {
+        groupName: ctx.session.groupName,
+        userName: ctx.session.userName,
+      },
+    }
+  }
+
+  const groupName = query.name
+  if (!groupName || typeof groupName !== "string") {
+    return { notFound: true }
+  }
+
+  console.log(query, params)
+
+  const password = query.password || query.pwd
+  if (!password || typeof password !== "string") {
+    return {
+      redirect: {
+        destination: `/${groupName}/login`,
+        statusCode: 302,
+      },
+    }
+  }
+
+  try {
+    await groupLogin({ groupName, password }, ctx)
+    return {
+      redirect: {
+        destination: `/${groupName}/login2`,
+        statusCode: 302,
+      },
+    }
+  } catch (e) {
+    if (e instanceof AuthenticationError) {
+      return {
+        redirect: {
+          destination: `/${groupName}/login?error=invalid_password`,
+          statusCode: 302,
+        },
+      }
+    }
+    throw e
+  }
+})
+
+const GroupPage: BlitzPage = ({ groupName, userName }: { groupName: string; userName: string }) => {
+  const [drawPersonMutation, { data }] = useMutation(drawPerson)
+  const [group] = useQuery(getGroup, { groupName })
 
   const { reward, isAnimating } = useReward("rewardId", "confetti", {
     elementCount: 200,
@@ -26,18 +72,6 @@ const GroupPage: BlitzPage = () => {
     angle: 70,
     spread: 150,
   })
-
-  if (!router.query.name || typeof router.query.name !== "string") {
-    return (
-      <div>
-        No group found. Go to the{" "}
-        <Link href={Routes.Home()}>
-          <a className="cursor-pointer bold underline">home page</a>
-        </Link>
-        .
-      </div>
-    )
-  }
 
   if (!group) {
     return (
@@ -54,27 +88,20 @@ const GroupPage: BlitzPage = () => {
   return (
     <Layout title={group.eventName}>
       <Card>
-        <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl md:text-4xl">
-          <span className="block xl:inline">
-            Welcome to {group.eventName}
-            {session.userName ? `, ${session.userName}` : ""}!
-          </span>
+        <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700">
+          Welcome to {group.eventName}, {userName}!
         </h1>
         <div className="flex justify-start my-6 items-center" id={"rewardId"}>
           <Button
             width={215}
             disabled={!!data}
             onClick={async () => {
-              try {
-                const response = await drawPersonMutation({
-                  groupName: group.name,
-                  memberName: "Ola", // todo
-                })
-                if (response.result) {
-                  reward()
-                }
-              } catch (e) {
-                console.error(e)
+              const response = await drawPersonMutation({
+                groupName: group.name,
+                memberName: userName,
+              })
+              if (response.result) {
+                reward()
               }
             }}
           >

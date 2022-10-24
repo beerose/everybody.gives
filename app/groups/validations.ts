@@ -57,10 +57,16 @@ export const CreateGroupInput = CreateGroupBasicInfo.merge(CreateGroupMembersInf
   .superRefine(membersRefine)
 
 export const GetGroupInput = z.object({
+  password: z.string().optional(),
   groupName: z.string(),
 })
 
 export const DrawPersonInput = z.object({
   groupName: z.string(),
   memberName: z.string(),
+})
+
+export const Login = z.object({
+  groupName: z.string(),
+  password: z.string(),
 })

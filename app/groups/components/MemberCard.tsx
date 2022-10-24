@@ -11,7 +11,7 @@ export const MembersCard = ({ name, onDelete, id, className = "" }: MembersCards
   return (
     <li
       className={
-        "col-span-1 flex flex-col rounded-lg text-center shadow border-2 border-black" + className
+        "col-span-1 flex flex-col rounded-lg text-center shadow border-2 border-black " + className
       }
       id={id}
     >
