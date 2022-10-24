@@ -19,7 +19,7 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
   const availableMembers = (await db.groupMember.findMany({
     where: {
       name: { not: memberName },
-      drawResult: null,
+      selectedBy: null,
       group: {
         name: groupName,
       },
@@ -42,12 +42,12 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
         id: result.id,
       },
       data: {
-        drawResult: memberName,
+        selectedBy: memberName,
       },
     })
     return { result: result.name }
   } catch (e) {
-    if (e.code === "P2002" && e.meta?.target?.includes("drawResult")) {
+    if (e.code === "P2002" && e.meta?.target?.includes("selectedBy")) {
       return { error: 'Oops, it looks like you have your person 😬. Ask your group\'s admin if you forgot who it was!' }
     }
     throw e

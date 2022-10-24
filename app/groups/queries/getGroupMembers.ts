@@ -9,7 +9,19 @@ export default resolver.pipe(resolver.zod(GetGroupInput), async ({ groupName }, 
 		throw new AuthorizationError()
 	}
 	
-	const group = await db.group.findFirst({ where: { name: groupName }, select: { members: true } });
+	const members = await db.groupMember.findMany({
+		where: {
+			group: {
+				name: groupName,
+			},
+		},
+		select: {
+			name: true,
+			selectedBy: true,
+		}
+	})
 
-	return group?.members.map(m => m.name);
+	const alreadyHasPerson = members.map((m) => m.selectedBy)
+
+	return members.map((m) => m.name).filter(name => !alreadyHasPerson.includes(name))
 });

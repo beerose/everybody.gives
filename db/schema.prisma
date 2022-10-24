@@ -16,8 +16,8 @@ model GroupMember {
   id   Int    @id @default(autoincrement())
   name String
 
-  cannotDraw  String[] @default([])
-  drawResult  String?
+  cannotDraw String[] @default([])
+  selectedBy String?
 
   group   Group  @relation(fields: [groupId], references: [id])
   groupId String
@@ -29,7 +29,7 @@ model GroupMember {
   sessions Session[]
 
   @@unique([name, groupId])
-  @@unique([drawResult, groupId])
+  @@unique([selectedBy, groupId])
 }
 
 model Group {
