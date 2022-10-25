@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic"
-import { BlitzPage, Routes } from "@blitzjs/next"
+import { BlitzPage, Routes, useParam } from "@blitzjs/next"
 import Layout from "app/core/layouts/Layout"
 import { LoginForm } from "app/auth/components/LoginForm"
 import { useRouter } from "next/router"
@@ -8,39 +8,47 @@ import { useEffect, useState } from "react"
 import { useMutation } from "@blitzjs/rpc"
 import groupLogin from "app/groups/mutations/groupLogin"
 
-const GroupLoginPage: BlitzPage = () => {
-  const router = useRouter()
-  const [password, setPassowrd] = useState("")
-  // const [groupLoginMutation] = useMutation(groupLogin)
-  // const [authenticated, setAuthenticated] = useState("error" in router.query ? true : false)
-
-  // add some loading state or something
+const usePasswordHash = () => {
+  const [hashValue, setHashValue] = useState("")
 
   useEffect(() => {
-    console.log(router.asPath)
-    const pwd = window?.location.hash.split("=")[1]
-    if (!pwd) {
-      return
+    const hash = window.location.hash
+    const hashValue = hash.replace("#", "").split("=")
+    if (hashValue?.[0] === "pwd" || hashValue?.[0] === "password") {
+      setHashValue(hashValue?.[1] || "")
     }
-    // should authenticate and redirect
-    setPassowrd(pwd)
-    // groupLoginMutation({ groupName: router.query.name as string, password: pwd })
-    //   .then(() => {
-    //     setAuthenticated(true)
-    //     router.push(`/${router.query.name}/login2`)
-    //   })
-    //   .catch(() => {
-    //     setAuthenticated(true)
-    //     router.push(`/${router.query.name}/login?error=invalid_password`)
-    //   })
+  }, [window.location.hash])
 
+  return hashValue
+}
+
+const GroupLoginPage: BlitzPage = () => {
+  const router = useRouter()
+  const name = useParam("name", "string")
+  const pwd = usePasswordHash()
+  const [groupLoginMutation] = useMutation(groupLogin)
+
+  useEffect(() => {
+    if (!pwd) return
+    if (!name) return
+
+    groupLoginMutation({ groupName: name, password: pwd })
+      .then(() => {
+        router.push(`/${name}/login2`)
+      })
+      .catch(() => {
+        router.replace(`/${name}/login?error=invalid_password`)
+      })
+  }, [pwd, name])
+
+  useEffect(() => {
     if (router.isReady && router.query.error) {
       const timer = setTimeout(() => {
         router.replace({ query: { name: router.query.name } })
-      }, 6000)
+      }, 10000)
       return () => clearTimeout(timer)
     }
-  }, [router.isReady, window.location.hash])
+  }, [router.isReady])
 
   return (
     <Layout title="Login">
@@ -48,13 +56,13 @@ const GroupLoginPage: BlitzPage = () => {
         <Card>
           <>
             {router.query.error ? (
-              <div role="alert" className="text-red-600 text-left mb-8">
+              <div role="alert" className="text-red-600 text-right mb-8">
                 ⚠️ Oops, you had an invalid password in the URL. Please try providing it manually.
               </div>
             ) : null}
 
             <LoginForm
-              password={password}
+              password={pwd}
               onSuccess={async (group) => {
                 await router.push(Routes.GroupLoginPage2({ name: group.name }))
               }}

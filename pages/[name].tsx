@@ -28,8 +28,6 @@ export const getServerSideProps = gSSP(async ({ query, params, ctx, ...rest }) =
     return { notFound: true }
   }
 
-  console.log(query, params)
-
   const password = query.password || query.pwd
   if (!password || typeof password !== "string") {
     return {

@@ -24,7 +24,6 @@ export const authenticateGroup = async (rawGroupName: string, rawPassword: strin
 
 export default resolver.pipe(resolver.zod(z.object({groupName: z.string(), memberName: z.string()})), async ({ groupName, memberName }, ctx) => {
   const privateData = await ctx.session.$getPrivateData();
-  console.log({privateData})
 	if (!privateData.groupName || privateData.groupName !== groupName) {
 		throw new AuthorizationError()
 	}
