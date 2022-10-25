@@ -6,7 +6,7 @@ export default resolver.pipe(resolver.zod(z.object({ name: z.string() })), async
 	const group = await db.group.findFirst({ where: { name } });
 
 	if (group) {
-		return { name: 'Group name already exists' };
+		return 'Group name already exists';
 	}
 
 	return null;

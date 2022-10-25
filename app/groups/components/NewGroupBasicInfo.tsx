@@ -1,10 +1,13 @@
+import { useMutation } from "@blitzjs/rpc"
 import { GiftIcon } from "@heroicons/react/solid"
 import { LabeledFieldWithAddOn } from "app/core/components/LabeledFieldWithAddOn"
 import LabeledTextareaField from "app/core/components/LabeledTextareaField"
 import LabeledTextField from "app/core/components/LabeledTextField"
 import { useForm } from "react-final-form"
+import validateGroupName from "../mutations/validateGroupName"
 
 export const NewGroupBasicFields = () => {
+  const [validateGroupNameMutation] = useMutation(validateGroupName)
   const form = useForm()
 
   return (
@@ -16,6 +19,13 @@ export const NewGroupBasicFields = () => {
         </h1>
       </div>
       <LabeledFieldWithAddOn
+        validate={async (value) => {
+          if (value) {
+            const result = await validateGroupNameMutation({ name: value })
+            return result
+          }
+          return null
+        }}
         addOn="everybody.gives/"
         name="name"
         label="Group Name"

@@ -81,8 +81,6 @@ export const AddConstraints = () => {
   const formState = useFormState()
   const { fields } = useFieldArray("rules")
 
-  console.log({ formState })
-
   return (
     <div className="space-y-8">
       <div className="text-center">

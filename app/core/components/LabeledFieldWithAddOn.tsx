@@ -12,14 +12,16 @@ export interface LabeledTextFieldProps extends PropsWithoutRef<JSX.IntrinsicElem
   labelProps?: ComponentPropsWithoutRef<"label">
   fieldProps?: UseFieldConfig<string>
   addOn: string
+  validate?: (value: string) => Promise<string | null>
 }
 
 export const LabeledFieldWithAddOn = forwardRef<HTMLInputElement, LabeledTextFieldProps>(
-  ({ name, label, outerProps, fieldProps, labelProps, addOn, ...props }, ref) => {
+  ({ name, label, outerProps, fieldProps, labelProps, addOn, validate, ...props }, ref) => {
     const {
       input,
       meta: { touched, error, submitError, submitting },
     } = useField(name, {
+      validate,
       parse:
         props.type === "number"
           ? (Number as any)
@@ -60,9 +62,9 @@ export const LabeledFieldWithAddOn = forwardRef<HTMLInputElement, LabeledTextFie
               data-lpignore="true"
             />
           </div>
-          {submitError && (
+          {error && error.includes("exists") && (
             <span role="alert" className=" text-left text-red-600">
-              {submitError}
+              {error}
             </span>
           )}
         </div>

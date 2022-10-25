@@ -24,8 +24,13 @@ export default resolver.pipe(
           },
         },
       },
-      select: { id: true, name: true, members: { select: { id: true } } },
+      select: { id: true, name: true, members: { select: { id: true, name: true } } },
     })
+
+    const adminUser = group.members.find(m => m.name === createdBy)
+    if (adminUser) {
+      await ctx.session.$create({ userId: adminUser.id, role: "admin", userName: createdBy, groupName: name}, {groupName: name, password} )
+    }
 
     return group
   },

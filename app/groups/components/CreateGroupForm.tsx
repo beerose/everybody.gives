@@ -11,7 +11,6 @@ import { AddMembers } from "./AddMembers"
 import arrayMutators from "final-form-arrays"
 import { Group } from "db"
 import { FORM_ERROR, MultistepForm } from "./MultistepForm"
-import validateGroupName from "app/groups/mutations/validateGroupName"
 import { NewGroupBasicFields } from "./NewGroupBasicInfo"
 import { AddConstraints } from "./AddConstraints"
 import { Card } from "app/core/components/Card"
@@ -22,7 +21,6 @@ type CreateGroupFormProps = {
 
 export const CreateGroupForm = (props: CreateGroupFormProps) => {
   const [createGroupMutation] = useMutation(createGroup)
-  const [validateGroupNameMutation] = useMutation(validateGroupName)
 
   return (
     <Card>
@@ -51,7 +49,7 @@ export const CreateGroupForm = (props: CreateGroupFormProps) => {
           }
         }}
       >
-        <MultistepForm.Page schema={CreateGroupBasicInfo} validate={validateGroupNameMutation}>
+        <MultistepForm.Page schema={CreateGroupBasicInfo}>
           <NewGroupBasicFields />
         </MultistepForm.Page>
 

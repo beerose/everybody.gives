@@ -7,13 +7,11 @@ import { Card } from "app/core/components/Card"
 import Layout from "app/core/layouts/Layout"
 import { MembersCard } from "app/groups/components/MemberCard"
 import drawPerson from "app/groups/mutations/drawPerson"
-import groupLogin from "app/groups/mutations/groupLogin"
 import getGroup from "app/groups/queries/getGroup"
-import { AuthenticationError } from "blitz"
 import Link from "next/link"
 import { useReward } from "react-rewards"
 
-export const getServerSideProps = gSSP(async ({ ctx }) => {
+export const getServerSideProps = gSSP(async ({ ctx, query }) => {
   if (ctx.session.$isAuthorized()) {
     return {
       props: {
@@ -23,7 +21,12 @@ export const getServerSideProps = gSSP(async ({ ctx }) => {
     }
   }
 
-  return { notFound: true }
+  return {
+    redirect: {
+      destination: `${query.name}/login`,
+      statusCode: 301,
+    },
+  }
 })
 
 const GroupPage: BlitzPage = ({ groupName, userName }: { groupName: string; userName: string }) => {
@@ -108,10 +111,7 @@ const GroupPage: BlitzPage = ({ groupName, userName }: { groupName: string; user
               </div>
             )}
           </dl>
-          <ul
-            role="list"
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-6"
-          >
+          <ul role="list" className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 pt-6">
             {group.members.map((member) => {
               let className = " bg-background"
               if (data?.result === member.name) {

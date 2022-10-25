@@ -1,6 +1,6 @@
 import { ErrorFallbackProps, ErrorComponent, ErrorBoundary, AppProps } from "@blitzjs/next"
 import { AuthenticationError, AuthorizationError } from "blitz"
-import React, { Suspense } from "react"
+import React from "react"
 import { withBlitz } from "app/blitz-client"
 
 import "app/core/styles/index.css"
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      <Suspense fallback={null}>{getLayout(<Component {...pageProps} />)}</Suspense>
+      {getLayout(<Component {...pageProps} />)}
     </ErrorBoundary>
   )
 }

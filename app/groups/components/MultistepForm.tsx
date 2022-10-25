@@ -41,15 +41,15 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
     values: Parameters<FinalFormProps<z.infer<S>>["onSubmit"]>[0],
     ...args: any
   ) => {
-    if (activePage.props.validate) {
-      const result = await activePage.props.validate(values)
-      if (result) return result
-    }
+    setInitialValues(values)
+    // if (activePage.props.validate) {
+    //   const result = await activePage.props.validate(values)
+    //   if (result) return result
+    // }
     if (isLastPage) {
       return onSubmit(values, args)
     }
     setPage((s) => Math.min(s + 1, children.length - 1))
-    setInitialValues(values)
   }
 
   const previous = () => setPage((p) => Math.max(p - 1, 0))
