@@ -6,17 +6,32 @@ import { useMutation, useQuery } from "@blitzjs/rpc"
 import getGroupMembers from "app/groups/queries/getGroupMembers"
 import { MembersCard } from "app/groups/components/MemberCard"
 import groupMemberLogin from "app/groups/mutations/groupMemberLogin"
+import { gSSP } from "app/blitz-server"
+import { PromiseReturnType } from "blitz"
 
-/**
- should show different pages based on password
- if password in url and authenticated -> show members cards 
- let that be no password case
- */
+export const getServerSideProps = gSSP(async ({ ctx, query }) => {
+  if (query.name && typeof query.name === "string") {
+    const members = await getGroupMembers({ groupName: query.name as string }, ctx)
 
-const GroupLoginPage2: BlitzPage = () => {
+    return {
+      props: {
+        members,
+      },
+    }
+  }
+
+  return {
+    notFound: true,
+  }
+})
+
+const GroupLoginPage2: BlitzPage = ({
+  members,
+}: {
+  members: PromiseReturnType<typeof getGroupMembers>
+}) => {
   const router = useRouter()
   const groupname = useParam("name", "string")
-  const [members] = useQuery(getGroupMembers, { groupName: groupname! })
   const [memberLoginMutation] = useMutation(groupMemberLogin)
 
   return (

@@ -8,15 +8,18 @@ import Layout from "app/core/layouts/Layout"
 import { MembersCard } from "app/groups/components/MemberCard"
 import drawPerson from "app/groups/mutations/drawPerson"
 import getGroup from "app/groups/queries/getGroup"
+import { PromiseReturnType } from "blitz"
 import Link from "next/link"
 import { useReward } from "react-rewards"
 
 export const getServerSideProps = gSSP(async ({ ctx, query }) => {
   if (ctx.session.$isAuthorized()) {
+    const group = await getGroup({ groupName: ctx.session.groupName! }, ctx)
+
     return {
       props: {
-        groupName: ctx.session.groupName,
         userName: ctx.session.userName,
+        group,
       },
     }
   }
@@ -29,9 +32,14 @@ export const getServerSideProps = gSSP(async ({ ctx, query }) => {
   }
 })
 
-const GroupPage: BlitzPage = ({ groupName, userName }: { groupName: string; userName: string }) => {
+const GroupPage: BlitzPage = ({
+  group,
+  userName,
+}: {
+  group: PromiseReturnType<typeof getGroup>
+  userName: string
+}) => {
   const [drawPersonMutation, { data }] = useMutation(drawPerson)
-  const [group] = useQuery(getGroup, { groupName })
 
   const { reward, isAnimating } = useReward("rewardId", "confetti", {
     elementCount: 200,
