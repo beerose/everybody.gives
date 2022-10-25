@@ -26,7 +26,7 @@ export const MembersCard = ({ name, onDelete, id, className = "" }: MembersCards
           <XIcon className="h-5 w-5" aria-hidden="true" />
         </button>
       )}
-      <div className="flex flex-1 flex-col py-8 px-4">
+      <div className="flex flex-1 flex-col py-8 px-4 break-words">
         <h3 className=" font-medium text-gray-700">{name}</h3>
       </div>
     </li>
