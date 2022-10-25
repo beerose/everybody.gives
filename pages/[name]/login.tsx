@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic"
 import { BlitzPage, Routes, useParam } from "@blitzjs/next"
 import Layout from "app/core/layouts/Layout"
-import { LoginForm } from "app/auth/components/LoginForm"
+import { LoginForm } from "app/groups/components/LoginForm"
 import { useRouter } from "next/router"
 import { Card } from "app/core/components/Card"
 import { useEffect, useState } from "react"
@@ -17,7 +17,7 @@ const usePasswordHash = () => {
     if (hashValue?.[0] === "pwd" || hashValue?.[0] === "password") {
       setHashValue(hashValue?.[1] || "")
     }
-  }, [window.location.hash])
+  }, [])
 
   return hashValue
 }
@@ -34,17 +34,17 @@ const GroupLoginPage: BlitzPage = () => {
 
     groupLoginMutation({ groupName: name, password: pwd })
       .then(() => {
-        router.push(`/${name}/name`)
+        void router.push(`/${name}/name`)
       })
       .catch(() => {
-        router.replace(`/${name}/login?error=invalid_password`)
+        void router.replace(`/${name}/login?error=invalid_password`)
       })
   }, [pwd, name])
 
   useEffect(() => {
     if (router.isReady && router.query.error) {
       const timer = setTimeout(() => {
-        router.replace({ query: { name: router.query.name } })
+        void router.replace({ query: { name: router.query.name } })
       }, 10000)
       return () => clearTimeout(timer)
     }

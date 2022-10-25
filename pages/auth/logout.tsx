@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import Layout from "app/core/layouts/Layout"
 import { BlitzPage, Routes } from "@blitzjs/next"
 import { useMutation } from "@blitzjs/rpc"
-import logout from "app/auth/mutations/logout"
+import logout from "app/groups/mutations/logout"
 
 const LogoutPage: BlitzPage = () => {
   const router = useRouter()
@@ -13,7 +13,7 @@ const LogoutPage: BlitzPage = () => {
       <button
         onClick={async () => {
           await logoutMutation()
-          router.push(Routes.Home())
+          void router.push(Routes.Home())
         }}
       >
         Logout

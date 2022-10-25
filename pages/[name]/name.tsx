@@ -54,7 +54,7 @@ const GroupLoginPage2: BlitzPage = ({
                   className="hover:scale-105"
                   onClick={async () => {
                     await memberLoginMutation({ groupName: groupname!, memberName: member })
-                    router.push(Routes.GroupPage({ name: groupname! }))
+                    await router.push(Routes.GroupPage({ name: groupname! }))
                   }}
                 >
                   <MembersCard name={member} className="bg-background" />

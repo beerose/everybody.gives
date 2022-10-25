@@ -8,11 +8,8 @@ const seed = async () => {
 			data: {
 				name: groupName,
 				hashedPassword: '1234',
-				settings: {
-					event: `My ${groupName} event`,
-					date: '2022-12-24',
-					amount: 100
-				}
+				createdBy: "Alex",
+				eventName: "Christmas",
 			}
 		});
 		for (let i = 0; i < 10; i++) {
