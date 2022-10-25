@@ -3,6 +3,7 @@ services:
     name: everybody.gives
     env: node
     plan: free
+    region: frankfurt
     buildCommand: yarn --frozen-lockfile --prod=false &&
       blitz prisma generate &&
       blitz build &&
