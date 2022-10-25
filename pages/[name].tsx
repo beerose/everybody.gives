@@ -13,7 +13,7 @@ import { AuthenticationError } from "blitz"
 import Link from "next/link"
 import { useReward } from "react-rewards"
 
-export const getServerSideProps = gSSP(async ({ query, params, ctx, ...rest }) => {
+export const getServerSideProps = gSSP(async ({ ctx }) => {
   if (ctx.session.$isAuthorized()) {
     return {
       props: {
@@ -23,40 +23,7 @@ export const getServerSideProps = gSSP(async ({ query, params, ctx, ...rest }) =
     }
   }
 
-  const groupName = query.name
-  if (!groupName || typeof groupName !== "string") {
-    return { notFound: true }
-  }
-
-  const password = query.password || query.pwd
-  if (!password || typeof password !== "string") {
-    return {
-      redirect: {
-        destination: `/${groupName}/login`,
-        statusCode: 302,
-      },
-    }
-  }
-
-  try {
-    await groupLogin({ groupName, password }, ctx)
-    return {
-      redirect: {
-        destination: `/${groupName}/login2`,
-        statusCode: 302,
-      },
-    }
-  } catch (e) {
-    if (e instanceof AuthenticationError) {
-      return {
-        redirect: {
-          destination: `/${groupName}/login?error=invalid_password`,
-          statusCode: 302,
-        },
-      }
-    }
-    throw e
-  }
+  return { notFound: true }
 })
 
 const GroupPage: BlitzPage = ({ groupName, userName }: { groupName: string; userName: string }) => {

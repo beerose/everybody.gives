@@ -34,7 +34,7 @@ const GroupLoginPage: BlitzPage = () => {
 
     groupLoginMutation({ groupName: name, password: pwd })
       .then(() => {
-        router.push(`/${name}/login2`)
+        router.push(`/${name}/name`)
       })
       .catch(() => {
         router.replace(`/${name}/login?error=invalid_password`)
