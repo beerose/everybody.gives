@@ -21,4 +21,5 @@ services:
 
 databases:
   - name: everybody.gives
+    region: frankfurt
     plan: free
