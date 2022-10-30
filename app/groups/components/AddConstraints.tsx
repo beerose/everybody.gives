@@ -26,12 +26,12 @@ const RuleInputs = ({
   }, [formState])
 
   return (
-    <div className="flex items-center space-x-3">
+    <div className="flex items-center space-x-2 sm:space-x-3">
       <div>
         <Field
           component="select"
           name={`rules[${idx}].person1`}
-          className={`block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500
+          className={`block w-full rounded-md border-gray-300 pl-3 pr-16 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500
             ${formStateErrors?.errors?.rules?.[idx]?.person1 ? "border-red-500" : ""}
           `}
         >
@@ -45,12 +45,12 @@ const RuleInputs = ({
             ))}
         </Field>
       </div>
-      <div className="block  font-medium text-gray-700">cannot draw</div>
+      <div className="block font-medium text-gray-700 text-center">cannot draw</div>
       <div>
         <Field
           component="select"
           name={`rules[${idx}].person2`}
-          className={`block w-full rounded-md border-gray-300 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500
+          className={`block w-full rounded-md border-gray-300 pl-3 pr-16 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500
           ${formStateErrors?.errors?.rules?.[idx]?.person2 ? "border-red-500" : ""}
           `}
         >
@@ -69,7 +69,7 @@ const RuleInputs = ({
       <button
         onClick={onDelete}
         type="button"
-        className="m-2 self-end text-gray-400 hover:text-gray-700 inline-flex items-center rounded-full border border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+        className="m-2 self-auto text-gray-400 hover:text-gray-700 inline-flex items-center rounded-full border border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
       >
         <XIcon className="h-5 w-5" aria-hidden="true" />
       </button>

@@ -29,7 +29,7 @@ const NewMemberInput = ({ onSubmit }: { onSubmit: (value: string) => void }) => 
           onSubmit(value)
           setValue("")
         }}
-        className="self-end flex-shrink-0 rounded-md border border-transparent bg-primary-600 px-6 py-4 font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:hover:hover:bg-primary-600"
+        className="self-end flex-shrink-0 rounded-md border border-transparent bg-primary-600 px-6 py-4 font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:hover:hover:bg-primary-600 w-24"
       >
         Add
       </button>
