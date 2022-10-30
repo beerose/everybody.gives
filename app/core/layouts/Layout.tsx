@@ -138,15 +138,15 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <title>{title || "everybody-gives"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="absolute top-[50px] left-[50px] rotate-12 opacity-100 -z-70 scale-75">
+      <div className="absolute top-[50px] left-[50px] rotate-12 opacity-70 -z-70 scale-50 lg:scale-75">
         <Present1 />
       </div>
 
-      <div className="absolute bottom-[100px] right-[200px] -rotate-12 opacity-70 -z-10">
+      <div className="absolute bottom-[100px] right-[200px] -rotate-12 opacity-70 -z-10 scale-50 sm:scale-75 lg:scale-100">
         <PresentBag />
       </div>
 
-      <div className="absolute top-[100px] right-[100px] -rotate-45 opacity-70 -z-10">
+      <div className="absolute top-[100px] right-[100px] -rotate-45 opacity-70 -z-10 scale-50 sm:scale-75 lg:scale-100">
         <Present2 />
       </div>
 
