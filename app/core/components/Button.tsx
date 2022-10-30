@@ -37,7 +37,7 @@ export function Button({
       style = { ...style, width }
 
       className +=
-        " cursor-pointer group flex flex-row whitespace-nowrap h-full items-center justify-center" +
+        " cursor-pointer group flex flex-row whitespace-nowrap min-h-full items-center justify-center" +
         " rounded-full border-2 border-black bg-action hover:text-background hover:bg-black disabled:opacity-50 disabled:hover:bg-action disabled:hover:text-black disabled:cursor-default"
 
       content = (

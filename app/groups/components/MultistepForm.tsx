@@ -65,12 +65,7 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
       schema={activePage.props.schema}
       mutators={mutators}
       render={({ handleSubmit, submitting, submitError, hasValidationErrors }) => (
-        <form
-          className="space-y-2 w-full mx-auto"
-          onSubmit={handleSubmit}
-          {...props}
-          autoComplete="off"
-        >
+        <form className="space-y-2 w-full" onSubmit={handleSubmit} {...props} autoComplete="off">
           <div className="space-y-4 sm:space-y-5">
             <div className="space-y-7">
               {activePage}

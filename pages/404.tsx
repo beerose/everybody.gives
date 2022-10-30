@@ -11,7 +11,7 @@ export default function Page404() {
   const title = "This page could not be found"
   return (
     <Layout title={`${statusCode}: ${title}`}>
-      <div className="h-full w-full flex items-center justify-center">
+      <div className="min-h-full w-full flex items-center justify-center">
         <div className="bg-white border-2 border-black rounded-xl p-10">
           <style dangerouslySetInnerHTML={{ __html: "body { margin: 0 }" }} />
           {statusCode ? (
