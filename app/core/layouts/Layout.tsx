@@ -150,7 +150,7 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <Present2 />
       </div>
 
-      <div className="h-full w-full flex relative">{children}</div>
+      <div className="min-h-full w-full flex relative">{children}</div>
     </React.Fragment>
   )
 }
