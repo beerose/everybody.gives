@@ -144,16 +144,16 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
           rel="stylesheet"
         />
       </Head>
-      <div className="absolute top-[50px] left-[50px] rotate-12 opacity-70 -z-70 scale-50 lg:scale-75">
+      <div className="absolute -top-5 md:top-[50px] -left-5 md:left-[50px] rotate-12 opacity-70 -z-70 scale-50 md:scale-75">
         <Present1 />
       </div>
 
-      <div className="absolute bottom-[100px] right-[200px] -rotate-12 opacity-70 -z-10 scale-50 sm:scale-75 lg:scale-100">
-        <PresentBag />
+      <div className="absolute top-[100px] -right-5 xs:right-[100px] -rotate-45 opacity-70 -z-10 scale-75 md:scale-100">
+        <Present2 />
       </div>
 
-      <div className="absolute top-[100px] right-[100px] -rotate-45 opacity-70 -z-10 scale-50 sm:scale-75 lg:scale-100">
-        <Present2 />
+      <div className="absolute -bottom-5 sm:bottom-0 md:bottom-[50px] right-0 sm:right-5 md:right-[150px] lg:right-[200px] -rotate-12 opacity-70 -z-10 scale-75 md:scale-100">
+        <PresentBag />
       </div>
 
       <div className="min-h-full w-full flex relative">{children}</div>
