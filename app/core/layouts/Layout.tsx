@@ -137,6 +137,12 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
       <Head>
         <title>{title || "everybody-gives"}</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@300;400;500;700;800;900&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <div className="absolute top-[50px] left-[50px] rotate-12 opacity-70 -z-70 scale-50 lg:scale-75">
         <Present1 />
