@@ -148,7 +148,7 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <Present1 />
       </div>
 
-      <div className="absolute top-[100px] -right-5 xs:right-[100px] -rotate-45 opacity-70 -z-10 scale-75 md:scale-100">
+      <div className="absolute top-[100px] -right-0 xs:right-[100px] -rotate-45 opacity-70 -z-10 scale-75 md:scale-100">
         <Present2 />
       </div>
 
@@ -156,7 +156,7 @@ const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
         <PresentBag />
       </div>
 
-      <div className="min-h-full w-full flex relative">{children}</div>
+      <div className="min-h-full w-full flex z-50 relative">{children}</div>
     </React.Fragment>
   )
 }
