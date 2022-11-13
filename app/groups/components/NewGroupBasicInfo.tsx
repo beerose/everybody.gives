@@ -21,8 +21,12 @@ export const NewGroupBasicFields = () => {
       <LabeledFieldWithAddOn
         validate={async (value) => {
           if (value) {
-            const result = await validateGroupNameMutation({ name: value })
-            return result
+            try {
+              const result = await validateGroupNameMutation({ name: value })
+              return result
+            } catch (e) {
+              return "Please provide a different group name"
+            }
           }
           return null
         }}
