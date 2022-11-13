@@ -7,9 +7,11 @@ import { Card } from "app/core/components/Card"
 import Layout from "app/core/layouts/Layout"
 import { MembersCard } from "app/groups/components/MemberCard"
 import drawPerson from "app/groups/mutations/drawPerson"
+import logout from "app/groups/mutations/logout"
 import getGroup from "app/groups/queries/getGroup"
 import { PromiseReturnType } from "blitz"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useReward } from "react-rewards"
 
 export const getServerSideProps = gSSP(async ({ ctx, query }) => {
@@ -39,7 +41,9 @@ const GroupPage: BlitzPage = ({
   group: PromiseReturnType<typeof getGroup>
   userName: string
 }) => {
+  const router = useRouter()
   const [drawPersonMutation, { data }] = useMutation(drawPerson)
+  const [logoutMutation] = useMutation(logout)
 
   const { reward, isAnimating } = useReward("rewardId", "confetti", {
     elementCount: 200,
@@ -65,6 +69,19 @@ const GroupPage: BlitzPage = ({
   return (
     <Layout title={group.eventName}>
       <Card>
+        {data?.result && (
+          <Button
+            variant="secondary"
+            className="ml-0"
+            style={{ paddingLeft: 0 }}
+            onClick={async () => {
+              await logoutMutation()
+              router.push(`/${group.name}`)
+            }}
+          >
+            ← Logout
+          </Button>
+        )}
         <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700">
           Welcome to {group.eventName}, {userName}!
         </h1>
