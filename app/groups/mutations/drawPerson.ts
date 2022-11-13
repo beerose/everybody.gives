@@ -1,5 +1,5 @@
 import { resolver } from '@blitzjs/rpc'
-import db from 'db'
+import db, { GroupMember } from 'db'
 import { DrawPersonInput } from '../validations'
 
 export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName, groupName }, ctx) => {
@@ -24,13 +24,20 @@ export default resolver.pipe(resolver.zod(DrawPersonInput), async ({ memberName,
         name: groupName,
       },
     },
-  })).filter((m) => !memberInfo.cannotDraw.includes(m.name))
+  }))
+  
+  const availableWithExclusions = availableMembers.filter((m) => !memberInfo.cannotDraw.includes(m.name))
 
   if (availableMembers.length === 0) {
     return { error: 'Oops, it looks like there are no more people to draw 😬. Contact your group\'s admin.' }
   }
 
-  const result = availableMembers[Math.floor(Math.random() * availableMembers.length)]
+  let result: undefined | GroupMember = undefined
+  if (availableWithExclusions.length === 0) {
+    result = availableMembers[Math.floor(Math.random() * availableMembers.length)]
+  } else {
+    result = availableWithExclusions[Math.floor(Math.random() * availableMembers.length)]
+  }
 
   if (!result) {
     return { error: 'No more people to draw' }
