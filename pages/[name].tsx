@@ -76,7 +76,7 @@ const GroupPage: BlitzPage = ({
             style={{ paddingLeft: 0 }}
             onClick={async () => {
               await logoutMutation()
-              router.push(`/${group.name}`)
+              await router.push(`/${group.name}`)
             }}
           >
             ← Logout
