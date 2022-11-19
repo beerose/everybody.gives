@@ -69,19 +69,17 @@ const GroupPage: BlitzPage = ({
   return (
     <Layout title={group.eventName}>
       <Card>
-        {data?.result && (
-          <Button
-            variant="secondary"
-            className="ml-0"
-            style={{ paddingLeft: 0 }}
-            onClick={async () => {
-              await logoutMutation()
-              await router.push(`/${group.name}`)
-            }}
-          >
-            ← Logout
-          </Button>
-        )}
+        <Button
+          variant="secondary"
+          className="ml-0"
+          style={{ paddingLeft: 0 }}
+          onClick={async () => {
+            await logoutMutation()
+            await router.push(`/${group.name}`)
+          }}
+        >
+          ← Logout
+        </Button>
         <h1 className="mt-1 text-5xl font-black tracking-tight text-gray-700">
           Welcome to {group.eventName}, {userName}!
         </h1>
