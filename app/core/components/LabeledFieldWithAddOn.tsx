@@ -44,13 +44,13 @@ export const LabeledFieldWithAddOn = forwardRef<HTMLInputElement, LabeledTextFie
 
         <div className="mt-1 sm:col-span-3 sm:mt-0">
           <div className="flex rounded-md">
-            <span className="inline-flex items-center rounded-l-md border-2 border-r-0 border-gray-600 bg-gray-100 px-3 text-gray-500">
+            <span className="sm:inline-flex hidden items-center rounded-l-md border-2 border-r-0 border-gray-600 bg-gray-100 px-3 text-gray-500">
               {addOn}
             </span>
             <input
               type="text"
               id={name}
-              className={`block border-2 bg-background px-0 indent-3 py-4 w-full min-w-0 flex-1 rounded-none rounded-r-md ${
+              className={`block border-2 bg-background px-0 indent-3 py-4 w-full min-w-0 flex-1 rounded-l-md sm:rounded-l-none rounded-r-md ${
                 touched && normalizedError
                   ? "border-red-600 focus:border-red-600 focus:ring-red-600"
                   : "border-gray-600 focus:border-primary-500 focus:ring-primary-500"
