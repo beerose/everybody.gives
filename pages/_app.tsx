@@ -1,6 +1,5 @@
 import { ErrorFallbackProps, ErrorComponent, ErrorBoundary, AppProps } from "@blitzjs/next"
 import { AuthenticationError, AuthorizationError } from "blitz"
-import React from "react"
 import { withBlitz } from "app/blitz-client"
 
 import "app/core/styles/index.css"
