@@ -76,15 +76,15 @@ export const MultistepForm = <S extends z.ZodType<any, any>>({
                     {submitError}
                   </div>
                 )}
-                <div className="flex gap-3 justify-end">
+                <div className="flex gap-3 justify-end h-14">
                   {page > 0 && (
                     <Button type="button" variant="secondary" onClick={previous}>
-                      Previous
+                      PREV
                     </Button>
                   )}
                   {!isLastPage && (
-                    <Button width={121} type="submit">
-                      Next
+                    <Button width={105} type="submit">
+                      NEXT
                     </Button>
                   )}
                   {isLastPage && (

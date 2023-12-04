@@ -34,7 +34,7 @@ const Home: BlitzPage = () => {
           <div className="mt-5 sm:mt-8 flex justify-start">
             <div className="inline">
               <Link href={Routes.NewGroup()}>
-                <Button as="a" width={200}>
+                <Button as="a" width={170}>
                   GET STARTED
                 </Button>
               </Link>

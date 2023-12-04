@@ -75,7 +75,7 @@ export function Form<S extends z.ZodType<any, any>>({
                         Cancel
                       </button>
                     )}
-                    <Button type="submit" width={130} disabled={submitting}>
+                    <Button type="submit" width={100} disabled={submitting}>
                       {submitText}
                     </Button>
                   </div>

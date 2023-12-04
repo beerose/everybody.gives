@@ -41,10 +41,10 @@ export function Button({
         " rounded-full border-2 border-black bg-action hover:text-background hover:bg-black disabled:opacity-50 disabled:hover:bg-action disabled:hover:text-black disabled:cursor-default"
 
       content = (
-        <div className="flex pt-1">
+        <div className="flex pt-1 items-center">
           <ArrowRightIcon
-            style={{ "--translateX": width - 48 - 24 - 3 + "px" } as {}}
-            className={`w-6 h-6 stroke-1.5 ${
+            style={{ "--translateX": width - 48 + "px" } as {}}
+            className={`w-6 h-6 mb-1 stroke-1.5 ${
               rest.disabled
                 ? ""
                 : "transition transform group-hover:translate-x-[var(--translateX)] motion-reduce:transition-none motion-reduce:group-hover:transform-none"
@@ -54,7 +54,7 @@ export function Button({
             className={`ml-1 ${
               rest.disabled
                 ? ""
-                : "transition transform group-hover:-translate-x-6 motion-reduce:transition-none motion-reduce:group-hover:transform-none group-hover:ml-0"
+                : "transition transform group-hover:-translate-x-6 motion-reduce:transition-none motion-reduce:group-hover:transform-none group-hover:ml-0 capitalize"
             }`}
           >
             {children}
